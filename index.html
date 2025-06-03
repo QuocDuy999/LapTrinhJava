@@ -1,59 +1,776 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gender Healthcare System</title>
-  <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Healthcare - Chăm sóc sức khỏe giới tính chuyên nghiệp</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 0.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #667eea;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            color: #667eea;
+            border: 2px solid #667eea;
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="1000" height="1000" fill="url(%23pattern)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: #f8f9ff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e1e8ff;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:nth-child(2) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .service-card:nth-child(3) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .service-card:nth-child(4) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.6s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scale(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card p {
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            counter-reset: num var(--num);
+        }
+
+        .stat-item p {
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 0;
+            background: #f8f9ff;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        /* Mobile Responsive */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 2px 0;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Trung Tâm Chăm Sóc Sức Khỏe Giới Tính</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Trang chủ</a></li>
-        <li><a href="#">Blog Giáo Dục Giới Tính</a></li>
-        <li><a href="#">Dịch vụ Xét Nghiệm STIs</a></li>
-        <li><a href="#">Theo dõi chu kỳ</a></li>
-        <li><a href="#">Đặt lịch tư vấn</a></li>
-        <li><a href="#">Hỏi đáp</a></li>
-        <li><a href="#">Đăng nhập</a></li>
-      </ul>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i> Gender Healthcare
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Trang chủ</a></li>
+                <li><a href="#services">Dịch vụ</a></li>
+                <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-outline">Đăng nhập</a>
+                <a href="#" class="btn btn-primary">Đăng ký</a>
+            </div>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </nav>
-  </header>
 
-  <section id="intro">
-    <h2>Giới thiệu</h2>
-    <p>
-      Chúng tôi cung cấp các dịch vụ chăm sóc sức khỏe giới tính, bao gồm xét nghiệm STIs, tư vấn sức khỏe sinh sản và các thông tin giáo dục giới tính.
-    </p>
-  </section>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Chăm sóc sức khỏe giới tính chuyên nghiệp</h1>
+            <p>Cung cấp dịch vụ tư vấn, xét nghiệm và theo dõi sức khỏe sinh sản toàn diện với đội ngũ chuyên gia hàng đầu</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">Đặt lịch tư vấn</a>
+                <a href="#" class="btn btn-outline">Tìm hiểu thêm</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
 
-  <section id="features">
-    <h2>Chức năng nổi bật</h2>
-    <ul>
-      <li>Theo dõi chu kỳ kinh nguyệt, nhắc nhở rụng trứng, uống thuốc, ...</li>
-      <li>Đặt lịch tư vấn trực tuyến với tư vấn viên</li>
-      <li>Gửi câu hỏi riêng tư đến tư vấn viên</li>
-      <li>Đặt và theo dõi xét nghiệm STIs</li>
-      <li>Quản lý hồ sơ, lịch sử tư vấn và xét nghiệm</li>
-    </ul>
-  </section>
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tại sao chọn chúng tôi?</h2>
+                <p>Chúng tôi cung cấp dịch vụ chăm sóc sức khỏe giới tính toàn diện với công nghệ hiện đại và đội ngũ chuyên gia giàu kinh nghiệm</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Đội ngũ chuyên gia</h3>
+                    <p>Bác sĩ và tư vấn viên được đào tạo chuyên sâu về sức khỏe sinh sản và giới tính</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Bảo mật tuyệt đối</h3>
+                    <p>Thông tin cá nhân được bảo vệ tuyệt đối theo tiêu chuẩn y tế quốc tế</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Phục vụ 24/7</h3>
+                    <p>Hỗ trợ tư vấn trực tuyến và cấp cứu 24 giờ mỗi ngày, 7 ngày trong tuần</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Ứng dụng di động</h3>
+                    <p>Theo dõi chu kỳ sinh sản, đặt lịch và nhận thông báo qua ứng dụng</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Theo dõi chi tiết</h3>
+                    <p>Báo cáo sức khỏe định kỳ và phân tích xu hướng cá nhân hóa</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Giáo dục sức khỏe</h3>
+                    <p>Kiến thức và hướng dẫn từ các chuyên gia về chăm sóc sức khỏe sinh sản</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="roles">
-    <h2>Vai trò người dùng</h2>
-    <ul>
-      <li><strong>Guest:</strong> Xem thông tin giới thiệu, blog</li>
-      <li><strong>Customer:</strong> Đặt lịch, khai báo chu kỳ, xem kết quả</li>
-      <li><strong>Consultant:</strong> Trả lời câu hỏi, tư vấn trực tuyến</li>
-      <li><strong>Staff:</strong> Quản lý xét nghiệm, xử lý yêu cầu</li>
-      <li><strong>Manager:</strong> Quản lý tư vấn viên, thống kê, báo cáo</li>
-      <li><strong>Admin:</strong> Quản trị toàn hệ thống</li>
-    </ul>
-  </section>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Dịch vụ của chúng tôi</h2>
+                <p>Cung cấp đầy đủ các dịch vụ chăm sóc sức khỏe giới tính từ cơ bản đến chuyên sâu</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                    <h3><i class="fas fa-calendar-alt"></i> Theo dõi chu kỳ</h3>
+                    <p>Theo dõi chu kỳ kinh nguyệt, dự đoán ngày rụng trứng và khả năng thụ thai</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                    <h3><i class="fas fa-video"></i> Tư vấn trực tuyến</h3>
+                    <p>Tư vấn với chuyên gia qua video call bảo mật và an toàn</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+                    <h3><i class="fas fa-vial"></i> Xét nghiệm STIs</h3>
+                    <p>Xét nghiệm các bệnh lây truyền qua đường tình dục với kết quả nhanh chóng</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
+                    <h3><i class="fas fa-question-circle"></i> Hỏi đáp chuyên gia</h3>
+                    <p>Đặt câu hỏi và nhận câu trả lời từ các chuyên gia y tế</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    <p>© 2025 Trung Tâm Chăm Sóc Sức Khỏe Giới Tính</p>
-  </footer>
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item" data-aos="fade-up">
+                    <h3 class="counter" data-count="10000">0</h3>
+                    <p>Khách hàng tin tưởng</p>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="counter" data-count="50">0</h3>
+                    <p>Chuyên gia y tế</p>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="counter" data-count="5">0</h3>
+                    <p>Năm kinh nghiệm</p>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="counter" data-count="99">0</h3>
+                    <p>% Khách hàng hài lòng</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Bắt đầu chăm sóc sức khỏe của bạn ngay hôm nay</h2>
+            <p>Đăng ký tài khoản miễn phí để trải nghiệm các dịch vụ chăm sóc sức khỏe giới tính chuyên nghiệp</p>
+            <a href="#" class="btn btn-primary">Đăng ký ngay</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gender Healthcare</h3>
+                    <p>Chăm sóc sức khỏe giới tính chuyên nghiệp với đội ngũ chuyên gia hàng đầu và công nghệ hiện đại.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Dịch vụ</h3>
+                    <a href="#">Theo dõi chu kỳ</a>
+                    <a href="#">Tư vấn trực tuyến</a>
+                    <a href="#">Xét nghiệm STIs</a>
+                    <a href="#">Hỏi đáp chuyên gia</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Hỗ trợ</h3>
+                    <a href="#">Trung tâm trợ giúp</a>
+                    <a href="#">Liên hệ</a>
+                    <a href="#">Câu hỏi thường gặp</a>
+                    <a href="#">Chính sách bảo mật</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên hệ</h3>
+                    <p><i class="fas fa-phone"></i> 1900 1234</p>
+                    <p><i class="fas fa-envelope"></i> info@genderhealthcare.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, TP.HCM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gender Healthcare. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const count = parseInt(counter.innerText);
+                const increment = target / 100;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(() => animateCounters(), 50);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+
+        // Trigger counter animation when section is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.stats'));
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle (basic implementation)
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenu.addEventListener('click', function() {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Add floating animation to hero elements
+        const heroElements = document.querySelectorAll('.hero-content > *');
+        heroElements.forEach((element, index) => {
+            element.style.animationDelay = `${index * 0.2}s`;
+        });
+    </script>
 </body>
 </html>
