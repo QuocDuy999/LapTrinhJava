@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - Gender Healthcare</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="/src/main/resources/static/css/login.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+ 
+    <meta http-equiv="refresh" content="5;url=/dashboard" />
+
 </head>
 <body>
     <div class="login-container">
@@ -13,10 +16,11 @@
             <h1>Đăng nhập</h1>
             <p>Chào mừng bạn trở lại! Vui lòng đăng nhập để tiếp tục.</p>
         </div>
-        <form>
+
+        <form method="post" action="/login">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
+                <input type="email" id="email" name="username" placeholder="Nhập email của bạn" required>
             </div>
             <div class="form-group">
                 <label for="password">Mật khẩu</label>
@@ -24,11 +28,11 @@
             </div>
             <button type="submit" class="btn">Đăng nhập</button>
         </form>
+
         <div class="login-footer">
-            <p>Chưa có tài khoản? <a href="/src/main/resources/templates/auth/register.html">Đăng ký ngay</a></p>
+            <p>Chưa có tài khoản? <a href="register">Đăng ký ngay</a></p>
             <p><a href="#">Quên mật khẩu?</a></p>
         </div>
     </div>
-    <script src="/src/main/resources/static/js/login.js"></script>
 </body>
 </html>
