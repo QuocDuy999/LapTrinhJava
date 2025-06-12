@@ -1,12 +1,12 @@
-package com.example.genderhealthcare.service;
+package com.healthcare.gender.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.genderhealthcare.entity.Appointment;
-import com.example.genderhealthcare.repository.AppointmentRepository;
+import com.healthcare.gender.model.entity.Appointment;
+import com.healthcare.gender.repository.AppointmentRepository;
 
 @Service
 public class AppointmentService {

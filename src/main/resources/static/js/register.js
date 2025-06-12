@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
     registerForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
+       
         const name = document.getElementById("name").value.trim();
+        const username = document.getElementById("username").value.trim();
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
         const confirmPassword = document.getElementById("confirm-password").value.trim();
@@ -20,10 +22,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         try {
-            const response = await fetch("/api/user/register", {
+            const response = await fetch("/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, password })
+                body: JSON.stringify({ name, username, email, password, confirmPassword })
             });
 
             if (response.ok) {

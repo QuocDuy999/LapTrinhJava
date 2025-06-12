@@ -1,4 +1,4 @@
-package com.example.genderhealthcare.entity;
+package com.healthcare.gender.model.entity;
 
 import java.time.LocalDate;
 

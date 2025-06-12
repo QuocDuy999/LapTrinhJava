@@ -1,4 +1,4 @@
-package com.example.genderhealthcare.entity; // Package phải đặt ở dòng đầu tiên
+package com.healthcare.gender.model.entity; // Package phải đặt ở dòng đầu tiên
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

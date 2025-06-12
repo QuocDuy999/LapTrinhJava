@@ -1,4 +1,4 @@
-package com.example.genderhealthcare.controller;
+package com.healthcare.gender.controller;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.genderhealthcare.entity.MenstrualCycle;
-import com.example.genderhealthcare.entity.User;
-import com.example.genderhealthcare.repository.MenstrualCycleRepository;
-import com.example.genderhealthcare.repository.UserRepository;
+import com.healthcare.gender.model.entity.MenstrualCycle;
+import com.healthcare.gender.model.entity.User;
+import com.healthcare.gender.repository.MenstrualCycleRepository;
+import com.healthcare.gender.repository.UserRepository;
 
 @Controller
 @RequestMapping("/customer")

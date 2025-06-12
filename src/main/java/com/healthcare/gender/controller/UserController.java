@@ -1,4 +1,4 @@
-package com.example.genderhealthcare.controller;
+package com.healthcare.gender.controller;
 
 import java.util.Optional;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.genderhealthcare.entity.User;
-import com.example.genderhealthcare.service.UserService;
+import com.healthcare.gender.model.entity.User;
+import com.healthcare.gender.service.UserService;
 
 @RestController
 @RequestMapping("/api/user")

@@ -1,4 +1,4 @@
-package com.example.genderhealthcare.service;
+package com.healthcare.gender.service;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.genderhealthcare.entity.User;
-import com.example.genderhealthcare.repository.UserRepository;
+import com.healthcare.gender.model.entity.User;
+import com.healthcare.gender.repository.UserRepository;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 

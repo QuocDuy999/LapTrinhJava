@@ -6,7 +6,7 @@
     <title>Gender Healthcare - Chăm sóc sức khỏe giới tính chuyên nghiệp</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="/src/main/resources/static/css/home.css" rel ="stylesheet">
+    <link th:href="@{/css/home.css}" rel ="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
@@ -22,8 +22,8 @@
                 <li><a href="#footer">Liên hệ</a></li>
             </ul>
             <div class="auth-buttons">
-                <a href="login" class="btn btn-outline">Đăng nhập</a>
-                <a href="register" class="btn btn-primary">Đăng ký</a>
+                <a href="/login" class="btn btn-outline">Đăng nhập</a>
+                <a href="/register" class="btn btn-primary">Đăng ký</a>
             </div>
             <div class="mobile-menu">
                 <span></span>

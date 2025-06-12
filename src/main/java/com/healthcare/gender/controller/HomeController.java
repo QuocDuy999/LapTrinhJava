@@ -1,4 +1,4 @@
-package com.example.genderhealthcare.controller;
+package com.healthcare.gender.controller;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.genderhealthcare.entity.BlogPost;
-import com.example.genderhealthcare.entity.Service;
-import com.example.genderhealthcare.repository.BlogPostRepository;
-import com.example.genderhealthcare.repository.ServiceRepository;
+import com.healthcare.gender.model.entity.BlogPost;
+import com.healthcare.gender.model.entity.Service;
+import com.healthcare.gender.repository.BlogPostRepository;
+import com.healthcare.gender.repository.ServiceRepository;
 
 @Controller
 public class HomeController {

@@ -1,4 +1,4 @@
-package com.example.genderhealthcare.controller;
+package com.healthcare.gender.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.genderhealthcare.entity.BlogPost;
-import com.example.genderhealthcare.repository.BlogPostRepository;
+import com.healthcare.gender.model.entity.BlogPost;
+import com.healthcare.gender.repository.BlogPostRepository;
 
 @RestController
 @RequestMapping("/blogs")

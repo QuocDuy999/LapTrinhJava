@@ -1,9 +1,9 @@
-package com.example.genderhealthcare.controller;
+package com.healthcare.gender.controller;
 
-import com.example.genderhealthcare.entity.Appointment;
-import com.example.genderhealthcare.entity.User;
-import com.example.genderhealthcare.service.AppointmentService;
-import com.example.genderhealthcare.service.UserService;
+import com.healthcare.gender.model.entity.Appointment;
+import com.healthcare.gender.model.entity.User;
+import com.healthcare.gender.service.AppointmentService;
+import com.healthcare.gender.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
