@@ -5,34 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - Gender Healthcare</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/login.css}">
- 
-    <meta http-equiv="refresh" content="5;url=/dashboard" />
-
+    <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
 <body>
     <div class="login-container">
         <div class="login-header">
             <h1>Đăng nhập</h1>
-            <p>Chào mừng bạn trở lại! Vui lòng đăng nhập để tiếp tục.</p>
+            <p>Chào mừng bạn trở lại! Vui lòng đăng nhập để tiếp tục.</p>   
         </div>
-
-        <form method="post" action="/login">
+        <form th:action="@{/login}" method="post">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="username" placeholder="Nhập email của bạn" required>
+                <input type="text" id="email" name="username" placeholder="Nhập email của bạn" required>
             </div>
             <div class="form-group">
                 <label for="password">Mật khẩu</label>
                 <input type="password" id="password" name="password" placeholder="Nhập mật khẩu của bạn" required>
             </div>
             <button type="submit" class="btn">Đăng nhập</button>
-        </form>
-
+        </form>        
         <div class="login-footer">
-            <p>Chưa có tài khoản? <a href="register">Đăng ký ngay</a></p>
+            <p>Chưa có tài khoản? <a href="/register">Đăng ký ngay</a></p>
             <p><a href="#">Quên mật khẩu?</a></p>
         </div>
     </div>
+    <script th:src="@{/js/login.js}"></script>
 </body>
 </html>

@@ -1,11 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Example: Sidebar toggle functionality
-    const sidebar = document.querySelector('.sidebar');
-    const toggleButton = document.querySelector('.sidebar-toggle');
+document.addEventListener("DOMContentLoaded", function() {
+    const loginForm = document.querySelector("form");
 
-    if (toggleButton) {
-        toggleButton.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
+    loginForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const response = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
         });
-    }
+
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem("token", data.token);
+            alert("Đăng nhập thành công!");
+            window.location.href = "/customer.html";
+        } else {
+            alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+        }
+    });
 });

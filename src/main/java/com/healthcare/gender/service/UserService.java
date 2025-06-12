@@ -1,27 +1,51 @@
-package com.healthcare.gender.service;
+package com.example.genderhealthcare.service;
 
-import com.healthcare.gender.model.entity.User;
-import com.healthcare.gender.Repository.UserRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.example.genderhealthcare.entity.User;
+import com.example.genderhealthcare.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public boolean existsByEmail(String email) {
+        if (email == null) {
+            return false;
+        }
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        return optionalUser.isPresent();
+    }
+    
+
+    public boolean existsByUsername(String username) {
+        return username != null && userRepository.findByUsername(username).isPresent();
+    }
+    
+
+    public void saveUser(User user) {
+        if (user.getEmail() == null || user.getPassword() == null || user.getName() == null) {
+            throw new IllegalArgumentException("Tên, Email và Mật khẩu không được để trống!");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword())); // Mã hóa mật khẩu
+        userRepository.save(user);
     }
 
-    public boolean emailExists(String email) {
-        return userRepository.existsByEmail(email);
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
-    public User registerUser(String name, String email, String rawPassword) {
-        String encodedPassword = passwordEncoder.encode(rawPassword);
-        User user = new User(name, email, encodedPassword);
-        return userRepository.save(user);
+    public boolean validateUser(String email, String rawPassword) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        return optionalUser.isPresent() && passwordEncoder.matches(rawPassword, optionalUser.get().getPassword());
     }
 }

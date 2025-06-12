@@ -1,10 +1,12 @@
-package com.healthcare.gender.Repository;
+package com.example.genderhealthcare.repository;
 
-import com.healthcare.gender.model.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.genderhealthcare.entity.User;
+
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String email);
-    boolean existsByEmail(String email);
+    Optional<User> findByEmail(String email); // ✅ Trả về Optional<User>
+    Optional<User> findByUsername(String username); // ✅ Tìm kiếm theo username
 }

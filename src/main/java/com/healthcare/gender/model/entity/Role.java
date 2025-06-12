@@ -1,5 +1,10 @@
-package com.healthcare.gender.model.entity;
+package com.example.genderhealthcare.entity;
 
-public class Role {
-    
+public enum Role {
+    GUEST,
+    CUSTOMER,
+    CONSULTANT,
+    STAFF,
+    MANAGER,
+    ADMIN
 }
