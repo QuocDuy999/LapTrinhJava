@@ -33,7 +33,8 @@ public class User {
 
     @Column(nullable = false) // Mật khẩu không được để trống
     private String password;
-
+    
+    private String role;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -43,12 +44,12 @@ public class User {
     public User() {}
 
     // Constructor có tham số
-    public User(String name, String email, String username, String password) {
+    public User(String name, String email, String username, String password, String role) {
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.roles = new HashSet<>();
+        this.role = role;
     }
 
     // Getter và Setter cho ID
@@ -97,11 +98,11 @@ public class User {
     }
 
     // Getter và Setter cho Roles
-    public Set<String> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

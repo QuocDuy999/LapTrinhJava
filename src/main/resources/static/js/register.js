@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const password = document.getElementById("password").value.trim();
         const confirmPassword = document.getElementById("confirm-password").value.trim();
 
-        if (!name || !email || !password || !confirmPassword) {
+        if (!name || !email || !password ) {
             alert("Vui lòng nhập đầy đủ thông tin!");
             return;
         }
@@ -22,15 +22,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         try {
-            const response = await fetch("/register", {
+            const response = await fetch("/auth/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, username, email, password, confirmPassword })
+                body: JSON.stringify({ name, email, password})
             });
 
             if (response.ok) {
                 alert("Đăng ký thành công! Vui lòng đăng nhập.");
-                window.location.href = "/login.html";
+                window.location.href = "/login";
             } else {
                 const errorText = await response.text();
                 alert("Đăng ký thất bại: " + errorText);

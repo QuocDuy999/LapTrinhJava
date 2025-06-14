@@ -1,11 +1,12 @@
 package com.healthcare.gender.model.dto;
 
-public class RegisterRequest {
+public class RegisterDTO {
     private String name;
     private String username;
     private String email;
     private String password;
     private String confirmPassword;
+    private String role;
 
     // Getters và setters
 
@@ -47,5 +48,12 @@ public class RegisterRequest {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

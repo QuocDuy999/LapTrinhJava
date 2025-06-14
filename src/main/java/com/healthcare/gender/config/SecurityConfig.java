@@ -2,61 +2,58 @@ package com.healthcare.gender.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import com.healthcare.gender.service.MyUserDetailsService;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.healthcare.gender.jwt.JwtAuthenticationFilter;
+
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletResponse;
 @Configuration
-@EnableWebSecurity
+@EnableMethodSecurity // Bật annotation như @PreAuthorize
 public class SecurityConfig {
 
-    // 👇 Inject UserDetailsService (nếu bạn cần dùng thủ công trong các bean khác)
-    @Bean
-    public UserDetailsService userDetailsService(MyUserDetailsService service) {
-        return service;
-    }
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // 👇 Bắt buộc: cung cấp AuthenticationManager từ cấu hình mặc định của Spring
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
             .csrf(csrf -> csrf.disable())
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/","/login","/register", "/css/**", "/js/**","/customer.html").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/manager/**").hasRole("MANAGER")
-                .anyRequest().authenticated()
+                .requestMatchers("/user/**").authenticated()
+                .requestMatchers("/auth/login", "/auth/register","/css/**", "/js/**", "/images/**", "/favicon.ico","/customer").permitAll()
+              
+                .anyRequest().permitAll()
             )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/login") // 👈 bạn nên thêm dòng này để rõ ràng
-                .usernameParameter("email")  // ✅ thêm dòng này nếu dùng email để login
-                .passwordParameter("password")
-                .defaultSuccessUrl("/customer.html", true)
-                .failureUrl("/login?error") // 👈 dòng này để Spring redirect khi đăng nhập lỗi
-                .permitAll()
+            .exceptionHandling(exception -> 
+                exception.authenticationEntryPoint((request, response, authException) -> {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"error\": \"Unauthorized\"}");
+                })
             )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
-                .permitAll());
-        
-        return http.build();
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            .build();
     }
-
-    @Bean
+        @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }

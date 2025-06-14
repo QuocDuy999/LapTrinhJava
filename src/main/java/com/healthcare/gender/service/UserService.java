@@ -1,51 +1,56 @@
 package com.healthcare.gender.service;
-
-import java.util.Optional;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.healthcare.gender.model.dto.RegisterDTO;
 import com.healthcare.gender.model.entity.User;
 import com.healthcare.gender.repository.UserRepository;
 
 @Service
-public class UserService {
-
+public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    public boolean existsByEmail(String email) {
-        if (email == null) {
-            return false;
-        }
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        return optionalUser.isPresent();
+    private final PasswordEncoder passwordEncoder;
+    public UserService( PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
-    
-
-    public boolean existsByUsername(String username) {
-        return username != null && userRepository.findByUsername(username).isPresent();
+  
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return new org.springframework.security.core.userdetails.User(
+            user.getEmail(),
+            user.getPassword(),
+            Collections.singletonList(new SimpleGrantedAuthority(user.getRole()))
+        );
     }
-    
-
-    public void saveUser(User user) {
-        if (user.getEmail() == null || user.getPassword() == null || user.getName() == null) {
-            throw new IllegalArgumentException("Tên, Email và Mật khẩu không được để trống!");
+    public String registerUser(RegisterDTO registerDTO) {
+        if (userRepository.existsByUsername(registerDTO.getEmail())) {
+            return "User already exists!";
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Mã hóa mật khẩu
+
+        User user = new User();
+        user.setName(registerDTO.getName());
+        user.setUsername(registerDTO.getEmail());
+        user.setEmail(registerDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+        user.setRole(registerDTO.getRole());
+         // Nếu role bị null, gán mặc định
+        String role = registerDTO.getRole();
+         if (role == null || role.isBlank()) {
+        role = "ROLE_USER";
+        }
+        user.setRole(role);
         userRepository.save(user);
-    }
-
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    public boolean validateUser(String email, String rawPassword) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        return optionalUser.isPresent() && passwordEncoder.matches(rawPassword, optionalUser.get().getPassword());
+        return "User registered successfully!";
     }
 }
