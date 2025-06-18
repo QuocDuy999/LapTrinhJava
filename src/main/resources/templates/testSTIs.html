@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xét nghiệm STIs - Gender Healthcare Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/src/main/resources/static/css/testSTIs.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar (giống customer.html) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Gender Healthcare</h2>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600;"></div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Khách hàng</div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="customer.html" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Theo dõi chu kỳ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="consultation.html" class="nav-link">
+                            <i class="fas fa-user-md"></i>
+                            Tư vấn trực tuyến
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link">
+                            <i class="fas fa-question-circle"></i>
+                            Hỏi đáp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="stis-testing.html" class="nav-link active">
+                            <i class="fas fa-vial"></i>
+                            Xét nghiệm STIs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-history"></i>
+                            Lịch sử
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user-circle"></i>
+                            Hồ sơ cá nhân
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-top: 2rem;">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Đăng xuất
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="welcome-text">
+                    <h1>Xét nghiệm STIs</h1>
+                    <p>Đặt lịch xét nghiệm các bệnh lây truyền qua đường tình dục</p>
+                </div>
+                <div class="quick-actions">
+                    <button class="btn btn-primary" id="view-history-btn">
+                        <i class="fas fa-history"></i>
+                        Lịch sử xét nghiệm
+                    </button>
+                </div>
+            </div>
+
+            <!-- Test Selection Section -->
+            <div class="testing-section">
+                <div class="section-header">
+                    <h3 class="section-title">Chọn gói xét nghiệm</h3>
+                    <div class="filter-options">
+                        <button class="filter-btn active">Tất cả</button>
+                        <button class="filter-btn">Cơ bản</button>
+                        <button class="filter-btn">Nâng cao</button>
+                        <button class="filter-btn">Toàn diện</button>
+                    </div>
+                </div>
+
+                <div class="tests-grid">
+                    <!-- Test Package 1 -->
+                    <div class="test-card">
+                        <div class="test-header">
+                            <h4>Gói cơ bản</h4>
+                            <span class="test-price">500.000 VND</span>
+                        </div>
+                        <ul class="test-list">
+                            <li><i class="fas fa-check"></i> HIV Ab test</li>
+                            <li><i class="fas fa-check"></i> Chlamydia</li>
+                            <li><i class="fas fa-check"></i> Gonorrhea</li>
+                        </ul>
+                        <div class="test-footer">
+                            <span class="result-time"><i class="fas fa-clock"></i> 24-48 giờ</span>
+                            <button class="btn-select">Chọn gói</button>
+                        </div>
+                    </div>
+
+                    <!-- Test Package 2 -->
+                    <div class="test-card featured">
+                        <div class="test-badge">Phổ biến</div>
+                        <div class="test-header">
+                            <h4>Gói tiêu chuẩn</h4>
+                            <span class="test-price">850.000 VND</span>
+                        </div>
+                        <ul class="test-list">
+                            <li><i class="fas fa-check"></i> HIV Ab test</li>
+                            <li><i class="fas fa-check"></i> Chlamydia</li>
+                            <li><i class="fas fa-check"></i> Gonorrhea</li>
+                            <li><i class="fas fa-check"></i> Syphilis</li>
+                            <li><i class="fas fa-check"></i> Hepatitis B</li>
+                        </ul>
+                        <div class="test-footer">
+                            <span class="result-time"><i class="fas fa-clock"></i> 24-48 giờ</span>
+                            <button class="btn-select">Chọn gói</button>
+                        </div>
+                    </div>
+
+                    <!-- Test Package 3 -->
+                    <div class="test-card">
+                        <div class="test-header">
+                            <h4>Gói toàn diện</h4>
+                            <span class="test-price">1.200.000 VND</span>
+                        </div>
+                        <ul class="test-list">
+                            <li><i class="fas fa-check"></i> HIV Ab test</li>
+                            <li><i class="fas fa-check"></i> Chlamydia</li>
+                            <li><i class="fas fa-check"></i> Gonorrhea</li>
+                            <li><i class="fas fa-check"></i> Syphilis</li>
+                            <li><i class="fas fa-check"></i> Hepatitis B</li>
+                            <li><i class="fas fa-check"></i> Hepatitis C</li>
+                            <li><i class="fas fa-check"></i> Trichomonas</li>
+                            <li><i class="fas fa-check"></i> HPV screening</li>
+                        </ul>
+                        <div class="test-footer">
+                            <span class="result-time"><i class="fas fa-clock"></i> 48-72 giờ</span>
+                            <button class="btn-select">Chọn gói</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="booking-section">
+                <div class="section-header">
+                    <h3 class="section-title">Đặt lịch xét nghiệm</h3>
+                </div>
+                
+                <div class="booking-form">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="test-type">Loại xét nghiệm</label>
+                            <select id="test-type" class="form-control">
+                                <option value="">Chọn gói xét nghiệm</option>
+                                <option value="basic">Gói cơ bản</option>
+                                <option value="standard">Gói tiêu chuẩn</option>
+                                <option value="premium">Gói toàn diện</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="test-date">Ngày xét nghiệm</label>
+                            <input type="date" id="test-date" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="test-time">Khung giờ</label>
+                            <select id="test-time" class="form-control">
+                                <option value="">Chọn khung giờ</option>
+                                <option value="morning">Sáng (8:00 - 11:00)</option>
+                                <option value="afternoon">Chiều (13:00 - 16:00)</option>
+                                <option value="evening">Tối (17:00 - 20:00)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="location">Địa điểm</label>
+                            <select id="location" class="form-control">
+                                <option value="">Chọn cơ sở xét nghiệm</option>
+                                <option value="hanoi">Hà Nội - 123 Trần Duy Hưng</option>
+                                <option value="hcm">TP.HCM - 456 Lê Văn Lương</option>
+                                <option value="danang">Đà Nẵng - 789 Ngô Quyền</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="payment">Phương thức thanh toán</label>
+                            <select id="payment" class="form-control">
+                                <option value="">Chọn phương thức</option>
+                                <option value="cash">Tiền mặt tại cơ sở</option>
+                                <option value="bank">Chuyển khoản ngân hàng</option>
+                                <option value="momo">Ví điện tử MoMo</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notes">Ghi chú thêm</label>
+                            <textarea id="notes" class="form-control" rows="3" placeholder="Yêu cầu đặc biệt, triệu chứng..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-secondary" id="reset-btn">Đặt lại</button>
+                    <button class="btn btn-primary" id="submit-booking">Đặt lịch ngay</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/src/main/resources/static/js/stis-testing.js"></script>
+</body>
+</html>
