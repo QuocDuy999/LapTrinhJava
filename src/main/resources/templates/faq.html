@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hỏi đáp - Gender Healthcare Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/src/main/resources/static/css/customer.css">
+    <style>
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .search-box {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+        
+        .btn-ask {
+            background: #6a67ce;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .faq-categories {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        
+        .category-btn {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            padding: 0.5rem 1.25rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active {
+            background: #6a67ce;
+            color: white;
+            border-color: #6a67ce;
+        }
+        
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .faq-answer {
+            padding: 0 1.25rem 1.25rem;
+            border-top: 1px solid #eee;
+            display: none;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .faq-item.expanded .faq-answer {
+            display: block;
+        }
+        
+        .faq-icon {
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.expanded .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .ask-form {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .ask-form h3 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group input, 
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        .btn-cancel {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar (giống trang customer) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Gender Healthcare</h2>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600;"></div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Khách hàng</div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Theo dõi chu kỳ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="consultation.html" class="nav-link">
+                            <i class="fas fa-user-md"></i>
+                            Tư vấn trực tuyến
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link active">
+                            <i class="fas fa-question-circle"></i>
+                            Hỏi đáp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-vial"></i>
+                            Xét nghiệm STIs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-history"></i>
+                            Lịch sử
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user-circle"></i>
+                            Hồ sơ cá nhân
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-top: 2rem;">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Đăng xuất
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="welcome-text">
+                    <h1>Hỏi đáp</h1>
+                    <p>Tìm câu trả lời cho những thắc mắc thường gặp</p>
+                </div>
+                <div class="quick-actions">
+                    <a href="dashboard.html" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i>
+                        Quay lại trang chính
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nội dung Hỏi đáp -->
+            <div class="faq-container">
+                <div class="search-container">
+                    <input type="text" class="search-box" id="faq-search" placeholder="Tìm kiếm câu hỏi...">
+                    <button class="btn-ask" id="ask-question-btn">
+                        <i class="fas fa-plus"></i>
+                        Đặt câu hỏi mới
+                    </button>
+                </div>
+                
+                <div class="faq-categories">
+                    <button class="category-btn active" data-category="all">Tất cả</button>
+                    <button class="category-btn" data-category="cycle">Chu kỳ kinh nguyệt</button>
+                    <button class="category-btn" data-category="health">Sức khỏe sinh sản</button>
+                    <button class="category-btn" data-category="sti">Xét nghiệm STIs</button>
+                    <button class="category-btn" data-category="contraception">Biện pháp tránh thai</button>
+                    <button class="category-btn" data-category="consultation">Tư vấn trực tuyến</button>
+                </div>
+                
+                <div class="faq-list" id="faq-list">
+                    <!-- Câu hỏi sẽ được thêm bằng JS -->
+                </div>
+                
+                <div class="ask-form" id="ask-form">
+                    <h3>Đặt câu hỏi mới</h3>
+                    <div class="form-group">
+                        <label for="question-title">Tiêu đề câu hỏi</label>
+                        <input type="text" id="question-title" placeholder="Nhập tiêu đề câu hỏi">
+                    </div>
+                    <div class="form-group">
+                        <label for="question-category">Danh mục</label>
+                        <select id="question-category">
+                            <option value="cycle">Chu kỳ kinh nguyệt</option>
+                            <option value="health">Sức khỏe sinh sản</option>
+                            <option value="sti">Xét nghiệm STIs</option>
+                            <option value="contraception">Biện pháp tránh thai</option>
+                            <option value="consultation">Tư vấn trực tuyến</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="question-detail">Nội dung chi tiết</label>
+                        <textarea id="question-detail" placeholder="Mô tả chi tiết câu hỏi của bạn..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-cancel" id="cancel-question-btn">Hủy bỏ</button>
+                        <button class="btn btn-primary" id="submit-question-btn">Gửi câu hỏi</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="/src/main/resources/static/js/faq.js"></script>
+</body>
+</html>
