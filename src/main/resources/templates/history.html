@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử - Gender Healthcare Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/src/main/resources/static/css/customer.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/history.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar (giống với customer.html) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Gender Healthcare</h2>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600;"></div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Khách hàng</div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="customer.html" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Theo dõi chu kỳ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="consultation.html" class="nav-link">
+                            <i class="fas fa-user-md"></i>
+                            Tư vấn trực tuyến
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link">
+                            <i class="fas fa-question-circle"></i>
+                            Hỏi đáp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="testing.html" class="nav-link">
+                            <i class="fas fa-vial"></i>
+                            Xét nghiệm STIs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="history.html" class="nav-link active">
+                            <i class="fas fa-history"></i>
+                            Lịch sử
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link">
+                            <i class="fas fa-user-circle"></i>
+                            Hồ sơ cá nhân
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-top: 2rem;">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Đăng xuất
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="welcome-text">
+                    <h1>Lịch Sử Của Bạn</h1>
+                    <p>Xem lại các hoạt động và dữ liệu đã lưu</p>
+                </div>
+                <div class="quick-actions">
+                    <button class="btn btn-primary" onclick="downloadHistory()">
+                        <i class="fas fa-download"></i>
+                        Xuất dữ liệu
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="history-tabs">
+                <button class="tab-btn active" data-tab="cycle-history">Chu kỳ</button>
+                <button class="tab-btn" data-tab="consultation-history">Tư vấn</button>
+                <button class="tab-btn" data-tab="test-history">Xét nghiệm</button>
+            </div>
+
+            <!-- Nội dung lịch sử -->
+            <div class="history-content">
+                <!-- Lịch sử chu kỳ -->
+                <div id="cycle-history" class="tab-pane active">
+                    <div class="section-header">
+                        <h3 class="section-title">Lịch sử chu kỳ</h3>
+                        <div class="filter-options">
+                            <select id="cycle-filter">
+                                <option value="all">Tất cả</option>
+                                <option value="last3">3 tháng gần nhất</option>
+                                <option value="last6">6 tháng gần nhất</option>
+                                <option value="last12">12 tháng gần nhất</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="cycle-history-container">
+                        <div class="history-item">
+                            <div class="history-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="history-details">
+                                <h4>Chu kỳ tháng 6/2025</h4>
+                                <div class="history-meta">
+                                    <span><i class="fas fa-calendar-day"></i> 05/06/2025 - 10/06/2025</span>
+                                    <span><i class="fas fa-ruler-combined"></i> Độ dài: 28 ngày</span>
+                                </div>
+                                <div class="cycle-stats">
+                                    <div class="stat-badge">
+                                        <i class="fas fa-egg"></i> Rụng trứng: 18/06/2025
+                                    </div>
+                                    <div class="stat-badge">
+                                        <i class="fas fa-heart"></i> Khả năng thụ thai: Cao
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="history-actions">
+                                <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                <button class="btn-icon"><i class="fas fa-download"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="history-details">
+                                <h4>Chu kỳ tháng 5/2025</h4>
+                                <div class="history-meta">
+                                    <span><i class="fas fa-calendar-day"></i> 07/05/2025 - 12/05/2025</span>
+                                    <span><i class="fas fa-ruler-combined"></i> Độ dài: 30 ngày</span>
+                                </div>
+                                <div class="cycle-stats">
+                                    <div class="stat-badge">
+                                        <i class="fas fa-egg"></i> Rụng trứng: 21/05/2025
+                                    </div>
+                                    <div class="stat-badge">
+                                        <i class="fas fa-heart"></i> Khả năng thụ thai: Trung bình
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="history-actions">
+                                <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                <button class="btn-icon"><i class="fas fa-download"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="history-details">
+                                <h4>Chu kỳ tháng 4/2025</h4>
+                                <div class="history-meta">
+                                    <span><i class="fas fa-calendar-day"></i> 10/04/2025 - 15/04/2025</span>
+                                    <span><i class="fas fa-ruler-combined"></i> Độ dài: 26 ngày</span>
+                                </div>
+                                <div class="cycle-stats">
+                                    <div class="stat-badge">
+                                        <i class="fas fa-egg"></i> Rụng trứng: 22/04/2025
+                                    </div>
+                                    <div class="stat-badge">
+                                        <i class="fas fa-heart"></i> Khả năng thụ thai: Cao
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="history-actions">
+                                <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                <button class="btn-icon"><i class="fas fa-download"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lịch sử tư vấn -->
+                <div id="consultation-history" class="tab-pane">
+                    <div class="section-header">
+                        <h3 class="section-title">Lịch sử tư vấn</h3>
+                        <div class="filter-options">
+                            <select id="consultation-filter">
+                                <option value="all">Tất cả</option>
+                                <option value="pending">Đang chờ</option>
+                                <option value="completed">Đã hoàn thành</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="consultation-history-container">
+                        <div class="history-item">
+                            <div class="history-icon">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="history-details">
+                                <h4>Tư vấn với BS. Nguyễn Thị Hương</h4>
+                                <div class="history-meta">
+                                    <span><i class="fas fa-calendar"></i> 15/06/2025, 14:30</span>
+                                    <span><i class="fas fa-clock"></i> 45 phút</span>
+                                </div>
+                                <p class="consultation-summary">Thảo luận về chu kỳ không đều và các biện pháp điều chỉnh</p>
+                                <div class="status-badge completed">Đã hoàn thành</div>
+                            </div>
+                            <div class="history-actions">
+                                <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                <button class="btn-icon"><i class="fas fa-download"></i></button>
+                                <button class="btn-icon"><i class="fas fa-redo"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-icon">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="history-details">
+                                <h4>Tư vấn với BS. Trần Minh Anh</h4>
+                                <div class="history-meta">
+                                    <span><i class="fas fa-calendar"></i> 02/05/2025, 10:00</span>
+                                    <span><i class="fas fa-clock"></i> 30 phút</span>
+                                </div>
+                                <p class="consultation-summary">Tư vấn về các phương pháp tránh thai tự nhiên</p>
+                                <div class="status-badge completed">Đã hoàn thành</div>
+                            </div>
+                            <div class="history-actions">
+                                <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                <button class="btn-icon"><i class="fas fa-download"></i></button>
+                                <button class="btn-icon"><i class="fas fa-redo"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lịch sử xét nghiệm -->
+                <div id="test-history" class="tab-pane">
+                    <div class="section-header">
+                        <h3 class="section-title">Lịch sử xét nghiệm</h3>
+                        <div class="filter-options">
+                            <select id="test-filter">
+                                <option value="all">Tất cả</option>
+                                <option value="stis">STIs</option>
+                                <option value="hormone">Nội tiết tố</option>
+                                <option value="other">Khác</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="test-history-container">
+                        <div class="history-item">
+                            <div class="history-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <div class="history-details">
+                                <h4>Xét nghiệm STIs toàn diện</h4>
+                                <div class="history-meta">
+                                    <span><i class="fas fa-calendar"></i> 20/05/2025</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Bệnh viện Phụ sản Hà Nội</span>
+                                </div>
+                                <div class="test-results">
+                                    <div class="result-item">
+                                        <span>Chlamydia:</span>
+                                        <span class="result-negative">Âm tính</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span>Gonorrhea:</span>
+                                        <span class="result-negative">Âm tính</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span>HIV:</span>
+                                        <span class="result-negative">Âm tính</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="history-actions">
+                                <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                <button class="btn-icon"><i class="fas fa-download"></i></button>
+                                <button class="btn-icon"><i class="fas fa-print"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <div class="history-details">
+                                <h4>Xét nghiệm nội tiết tố</h4>
+                                <div class="history-meta">
+                                    <span><i class="fas fa-calendar"></i> 10/04/2025</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Phòng khám Đa khoa Medlatec</span>
+                                </div>
+                                <div class="test-results">
+                                    <div class="result-item">
+                                        <span>Estrogen:</span>
+                                        <span class="result-normal">150 pg/mL (Bình thường)</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span>Progesterone:</span>
+                                        <span class="result-normal">12 ng/mL (Bình thường)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="history-actions">
+                                <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                <button class="btn-icon"><i class="fas fa-download"></i></button>
+                                <button class="btn-icon"><i class="fas fa-print"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/src/main/resources/static/js/history.js"></script>
+</body>
+</html>
