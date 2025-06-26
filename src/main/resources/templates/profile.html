@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân - Gender Healthcare Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/src/main/resources/static/css/profile.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar (giống customer) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Gender Healthcare</h2>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <div id="sidebar-user-name" style="font-weight: 600;"></div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Khách hàng</div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="customer.html" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Theo dõi chu kỳ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="consultation.html" class="nav-link">
+                            <i class="fas fa-user-md"></i>
+                            Tư vấn trực tuyến
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="faq.html" class="nav-link">
+                            <i class="fas fa-question-circle"></i>
+                            Hỏi đáp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-vial"></i>
+                            Xét nghiệm STIs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-history"></i>
+                            Lịch sử
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link active">
+                            <i class="fas fa-user-circle"></i>
+                            Hồ sơ cá nhân
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-top: 2rem;">
+                        <a href="#" class="nav-link" id="logout-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Đăng xuất
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="welcome-text">
+                    <h1>Hồ sơ cá nhân</h1>
+                </div>
+                <div class="quick-actions">
+                    <button class="btn btn-primary" id="edit-profile-btn">
+                        <i class="fas fa-edit"></i>
+                        Chỉnh sửa
+                    </button>
+                    <button class="btn btn-secondary" id="save-profile-btn" style="display: none;">
+                        <i class="fas fa-save"></i>
+                        Lưu thay đổi
+                    </button>
+                </div>
+            </div>
+
+            <!-- Profile Information -->
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="https://via.placeholder.com/150" alt="Avatar" id="user-avatar">
+                        <button class="btn-upload" id="avatar-upload-btn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profile-name">Nguyễn Văn A</h2>
+                        <p id="profile-role">Khách hàng</p>
+                    </div>
+                </div>
+
+                <div class="profile-details">
+                    <div class="detail-card">
+                        <h3>Thông tin cá nhân</h3>
+                        <div class="detail-item">
+                            <label for="full-name">Họ và tên:</label>
+                            <span id="full-name-display">Nguyễn Văn A</span>
+                            <input type="text" id="full-name-input" class="edit-input" style="display: none;">
+                        </div>
+                        <div class="detail-item">
+                            <label for="email">Email:</label>
+                            <span id="email-display">nguyenvana@example.com</span>
+                            <input type="email" id="email-input" class="edit-input" style="display: none;">
+                        </div>
+                        <div class="detail-item">
+                            <label for="phone">Số điện thoại:</label>
+                            <span id="phone-display">0123456789</span>
+                            <input type="tel" id="phone-input" class="edit-input" style="display: none;">
+                        </div>
+                        <div class="detail-item">
+                            <label for="dob">Ngày sinh:</label>
+                            <span id="dob-display">01/01/1990</span>
+                            <input type="date" id="dob-input" class="edit-input" style="display: none;">
+                        </div>
+                        <div class="detail-item">
+                            <label for="gender">Giới tính:</label>
+                            <span id="gender-display">Nữ</span>
+                            <select id="gender-input" class="edit-input" style="display: none;">
+                                <option value="Nữ">Nữ</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3>Thông tin sức khỏe</h3>
+                        <div class="detail-item">
+                            <label for="blood-type">Nhóm máu:</label>
+                            <span id="blood-type-display">A+</span>
+                            <select id="blood-type-input" class="edit-input" style="display: none;">
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="detail-item">
+                            <label for="height">Chiều cao (cm):</label>
+                            <span id="height-display">165 cm</span>
+                            <input type="number" id="height-input" class="edit-input" style="display: none;">
+                        </div>
+                        <div class="detail-item">
+                            <label for="weight">Cân nặng (kg):</label>
+                            <span id="weight-display">55 kg</span>
+                            <input type="number" id="weight-input" class="edit-input" style="display: none;">
+                        </div>
+                        <div class="detail-item">
+                            <label for="allergies">Dị ứng:</label>
+                            <span id="allergies-display">Không</span>
+                            <textarea id="allergies-input" class="edit-input" style="display: none;"></textarea>
+                        </div>
+                        <div class="detail-item">
+                            <label for="medical-history">Tiền sử bệnh:</label>
+                            <span id="medical-history-display">Không</span>
+                            <textarea id="medical-history-input" class="edit-input" style="display: none;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/src/main/resources/static/js/profile.js"></script>
+</body>
+</html>
