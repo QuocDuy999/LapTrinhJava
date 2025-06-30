@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem("token", data.token);
-            alert("Đăng nhập thành công!");
+            // alert("Đăng nhập thành công!");
             window.location.href = "/customer";
         } else {
             alert("Tên đăng nhập hoặc mật khẩu không đúng!");

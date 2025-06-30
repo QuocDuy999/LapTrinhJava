@@ -21,7 +21,7 @@ public class HomeController {
     @Autowired
     private ServiceRepository serviceRepository;
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String home(Model model) {
         List<BlogPost> blogs = blogPostRepository.findAll();
         List<Service> services = serviceRepository.findAll();

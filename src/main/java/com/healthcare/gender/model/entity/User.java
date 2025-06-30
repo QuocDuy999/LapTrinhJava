@@ -22,7 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false) // Tên không được để trống
+    @Column(nullable = false,columnDefinition = "NVARCHAR(255)") // Tên không được để trống
     private String name;
 
     @Column(unique = true, nullable = false) // Email phải duy nhất

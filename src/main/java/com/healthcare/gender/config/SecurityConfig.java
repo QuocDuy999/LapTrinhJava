@@ -1,5 +1,7 @@
 package com.healthcare.gender.config;
 
+import com.healthcare.gender.jwt.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,13 +13,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.healthcare.gender.jwt.JwtAuthenticationFilter;
+import java.util.List;
 
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletResponse;
 @Configuration
-@EnableMethodSecurity // Bật annotation như @PreAuthorize
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -34,17 +37,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+            .cors()
+            .and()
             .csrf(csrf -> csrf.disable())
-           .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/user/**").authenticated()
-                .requestMatchers("/auth/login", "/auth/register","/css/**", "/js/**", "/images/**", "/favicon.ico","/customer").permitAll()
-              
+                .requestMatchers(
+                    "/auth/login",
+                    "/auth/register",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**",
+                    "/favicon.ico",
+                    "/customer",
+                    "/home",
+                    "/cycle"
+                ).permitAll()
+                .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
             )
-            .exceptionHandling(exception -> 
-                exception.authenticationEntryPoint((request, response, authException) -> {
+            .exceptionHandling(exception -> exception
+                .authenticationEntryPoint((request, response, authException) -> {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.setContentType("application/json");
                     response.getWriter().write("{\"error\": \"Unauthorized\"}");
@@ -53,7 +66,22 @@ public class SecurityConfig {
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
     }
-        @Bean
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOriginPatterns(List.of("*")); // hoặc chỉ định cụ thể nếu cần: ["http://localhost:5500"]
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setExposedHeaders(List.of("Authorization"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }

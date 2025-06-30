@@ -51,6 +51,7 @@ public class AuthsController {
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Sai thông tin đăng nhập");
         }
+        
     }
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody RegisterDTO registerDTO) {
