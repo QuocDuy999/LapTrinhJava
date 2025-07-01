@@ -4,14 +4,143 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentMonthDisplay = document.querySelector(".current-month");
     const prevMonthButton = document.querySelector(".month-nav.prev");
     const nextMonthButton = document.querySelector(".month-nav.next");
+    const appointmentForm = document.getElementById("appointment-form");
+    const appointmentFormContainer = document.getElementById("appointment-form-container");
+    const historySection = document.getElementById("history-section");
 
     let currentDate = new Date();
     let currentMonth = currentDate.getMonth();
     let currentYear = currentDate.getFullYear();
 
-    cycleForm.addEventListener("submit", function(event) {
-        event.preventDefault(); // Ngăn form chuyển trang
+    // Load danh sách tư vấn viên
+    async function loadConsultants() {
+        try {
+            console.log("Loading consultants...");
+            const response = await fetch("/api/consultant/list", { credentials: 'include' });
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            const consultants = await response.json();
+            console.log("Danh sách tư vấn viên từ API:", consultants);
+            const consultantSelect = document.getElementById("consultant");
+            if (!consultantSelect) {
+                console.error("Element #consultant not found");
+                return;
+            }
+            consultantSelect.innerHTML = '<option value="">Chọn tư vấn viên</option>';
+            consultants.forEach(consultant => {
+                const option = document.createElement("option");
+                option.value = consultant.id;
+                option.textContent = `${consultant.name} (${consultant.role})`;
+                consultantSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Lỗi khi tải danh sách tư vấn viên:", error);
+        }
+    }
 
+    // Load lịch sử tư vấn
+    async function loadAppointments() {
+        try {
+            const response = await fetch("/api/appointment/list", { credentials: 'include' });
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            const appointments = await response.json();
+            const appointmentList = document.getElementById("appointment-list");
+            appointmentList.innerHTML = "";
+            if (appointments.length === 0) {
+                appointmentList.innerHTML = "<p>Chưa có lịch hẹn nào.</p>";
+                return;
+            }
+            appointments.forEach(appointment => {
+                const div = document.createElement("div");
+                div.className = "appointment-item";
+                div.innerHTML = `
+                    <p>${appointment.consultant.name} (${appointment.consultant.role}) - ${new Date(appointment.appointmentDate).toLocaleString('vi-VN')}</p>
+                    <button onclick="deleteAppointment(${appointment.id})">Xóa</button>
+                `;
+                appointmentList.appendChild(div);
+            });
+        } catch (error) {
+            console.error("Lỗi khi tải lịch sử tư vấn:", error);
+        }
+    }
+
+    // Xóa lịch hẹn
+    window.deleteAppointment = async function(id) {
+        if (confirm("Bạn có chắc chắn muốn xóa lịch hẹn này?")) {
+            try {
+                const response = await fetch(`/api/appointment/delete/${id}`, {
+                    method: "DELETE",
+                    credentials: 'include'
+                });
+                if (response.ok) {
+                    alert("Lịch hẹn đã được xóa!");
+                    loadAppointments();
+                } else {
+                    alert("Xóa lịch hẹn thất bại!");
+                }
+            } catch (error) {
+                console.error("Lỗi khi xóa lịch hẹn:", error);
+                alert("Lỗi khi xóa lịch hẹn. Vui lòng thử lại sau.");
+            }
+        }
+    };
+
+    // Xử lý form đặt lịch
+    appointmentForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+        const appointmentDate = document.getElementById("appointmentDate").value;
+        const consultantId = document.getElementById("consultant").value;
+
+        if (!appointmentDate || !consultantId) {
+            alert("Vui lòng chọn ngày giờ và tư vấn viên!");
+            return;
+        }
+
+        try {
+            const response = await fetch("/api/appointment/book", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `appointmentDate=${encodeURIComponent(appointmentDate)}&consultantId=${consultantId}`,
+                credentials: 'include'
+            });
+            if (response.ok) {
+                alert("Đặt lịch thành công!");
+                appointmentFormContainer.style.display = "none";
+                appointmentForm.reset();
+                if (historySection.style.display === "block") {
+                    loadAppointments();
+                }
+            } else {
+                alert("Đặt lịch thất bại!");
+            }
+        } catch (error) {
+            console.error("Lỗi khi đặt lịch:", error);
+            alert("Lỗi khi đặt lịch. Vui lòng thử lại sau.");
+        }
+    });
+
+    // Hiển thị/Ẩn form đặt lịch
+    window.toggleAppointmentForm = function() {
+        console.log("Toggle form called");
+        appointmentFormContainer.style.display = appointmentFormContainer.style.display === "none" ? "block" : "none";
+        if (appointmentFormContainer.style.display === "block") {
+            loadConsultants();
+            console.log("loadConsultants called");
+        }
+    };
+
+    // Hiển thị lịch sử tư vấn
+    window.showHistory = function() {
+        historySection.style.display = historySection.style.display === "none" ? "block" : "none";
+        if (historySection.style.display === "block") {
+            loadAppointments();
+        } else {
+            document.getElementById("appointment-list").innerHTML = "";
+        }
+    };
+
+    // Các phần code còn lại giữ nguyên
+    cycleForm.addEventListener("submit", function(event) {
+        event.preventDefault();
         const lastPeriodDateInput = document.getElementById("lastPeriodDate").value;
         if (!lastPeriodDateInput) {
             alert("Vui lòng nhập ngày bắt đầu kỳ kinh gần nhất.");
@@ -27,28 +156,23 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Kiểm tra nếu ngày hợp lệ
         if (isNaN(lastPeriodDate.getTime())) {
             alert("Ngày bắt đầu kỳ kinh không hợp lệ.");
             return;
         }
 
-        // Tính toán ngày rụng trứng
         const ovulationDate = new Date(lastPeriodDate);
         ovulationDate.setDate(lastPeriodDate.getDate() + cycleLength - 14);
 
-        // Tính toán thời kỳ màu mỡ
         const fertileStart = new Date(ovulationDate);
         fertileStart.setDate(ovulationDate.getDate() - 3);
 
         const fertileEnd = new Date(ovulationDate);
         fertileEnd.setDate(ovulationDate.getDate() + 2);
 
-        // Tính toán ngày hành kinh tiếp theo
         const nextMenstruationDate = new Date(lastPeriodDate);
         nextMenstruationDate.setDate(lastPeriodDate.getDate() + cycleLength);
 
-        // Tính toán khả năng thụ thai
         let fertilityStatus = "Thấp";
         if (cycleLength >= 26 && cycleLength <= 32) {
             fertilityStatus = "Cao";
@@ -56,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
             fertilityStatus = "Trung bình";
         }
 
-        // Tính toán điểm sức khỏe
         let healthScore = 80;
         if (cycleLength >= 26 && cycleLength <= 32) {
             healthScore = 90;
@@ -66,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
             healthScore = 75;
         }
 
-        // Lưu dữ liệu vào localStorage
         localStorage.setItem("cycleLength", cycleLength);
         localStorage.setItem("ovulationDate", formatDate(ovulationDate));
         localStorage.setItem("fertileStart", formatDate(fertileStart));
@@ -75,29 +197,24 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("fertilityStatus", fertilityStatus);
         localStorage.setItem("healthScore", healthScore);
 
-        // Hiển thị dữ liệu trên Stats Cards
         document.getElementById("cycle-length-display").textContent = cycleLength + " ngày";
         document.getElementById("ovulation-date-display").textContent = formatDate(ovulationDate);
         document.getElementById("fertile-period-display").textContent = fertilityStatus;
         document.getElementById("health-score-display").textContent = healthScore + "/100";
 
-        // Hiển thị dữ liệu trên Predictions Panel
         document.getElementById("menstruation-date-display").textContent = formatDate(nextMenstruationDate);
         document.getElementById("fertile-start-display").textContent = formatDate(fertileStart);
         document.getElementById("fertile-end-display").textContent = formatDate(fertileEnd);
 
-        // Hiển thị dữ liệu trên Lịch chu kỳ
         generateCalendar(currentMonth, currentYear);
 
         alert("Chu kỳ đã được lưu thành công!");
     });
 
-    // Hiển thị dữ liệu đã lưu khi tải lại trang
     if (localStorage.getItem("cycleLength")) {
         generateCalendar(currentMonth, currentYear);
     }
 
-    // Chuyển đổi tháng
     prevMonthButton.addEventListener("click", () => {
         currentMonth--;
         if (currentMonth < 0) {
@@ -116,29 +233,24 @@ document.addEventListener('DOMContentLoaded', () => {
         generateCalendar(currentMonth, currentYear);
     });
 
-    // Hiển thị lịch ban đầu
     generateCalendar(currentMonth, currentYear);
 });
 
-// Hàm định dạng ngày-tháng-năm
 function formatDate(date) {
-    if (!date || date === "null") return "--"; // Nếu dữ liệu null, hiển thị "--"
-    
+    if (!date || date === "null") return "--";
     const d = new Date(date);
     return d.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
-// Hàm tạo lịch động với màu sắc khác nhau
 function generateCalendar(month, year) {
     const calendarContainer = document.querySelector(".calendar");
-    calendarContainer.innerHTML = ""; // Xóa lịch cũ
+    calendarContainer.innerHTML = "";
 
     const firstDay = new Date(year, month, 1).getDay();
     const lastDate = new Date(year, month + 1, 0).getDate();
 
     document.querySelector(".current-month").textContent = `Tháng ${month + 1}, ${year}`;
 
-    // Thêm tiêu đề ngày
     const daysOfWeek = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
     daysOfWeek.forEach(day => {
         const dayHeader = document.createElement("div");
@@ -147,21 +259,18 @@ function generateCalendar(month, year) {
         calendarContainer.appendChild(dayHeader);
     });
 
-    // Thêm ngày trống trước ngày đầu tiên của tháng
     for (let i = 0; i < firstDay; i++) {
         const emptyDay = document.createElement("div");
         emptyDay.classList.add("calendar-day", "other-month");
         calendarContainer.appendChild(emptyDay);
     }
 
-    // Lấy dữ liệu từ localStorage
     const menstruationDate = localStorage.getItem("nextMenstruationDate") ? new Date(localStorage.getItem("nextMenstruationDate")) : null;
     const fertileStart = localStorage.getItem("fertileStart") ? new Date(localStorage.getItem("fertileStart")) : null;
     const fertileEnd = localStorage.getItem("fertileEnd") ? new Date(localStorage.getItem("fertileEnd")) : null;
     const ovulationDate = localStorage.getItem("ovulationDate") ? new Date(localStorage.getItem("ovulationDate")) : null;
     const periodLength = localStorage.getItem("periodLength") ? parseInt(localStorage.getItem("periodLength")) : 5;
 
-    // Thêm ngày của tháng
     for (let day = 1; day <= lastDate; day++) {
         const dayElement = document.createElement("div");
         dayElement.classList.add("calendar-day");
@@ -169,22 +278,18 @@ function generateCalendar(month, year) {
 
         const fullDate = new Date(year, month, day);
 
-        // Kiểm tra nếu ngày là hôm nay
         if (fullDate.toDateString() === new Date().toDateString()) {
             dayElement.classList.add("today");
         }
 
-        // Kiểm tra nếu ngày thuộc chu kỳ kinh nguyệt
         if (menstruationDate && fullDate >= menstruationDate && fullDate < new Date(menstruationDate.getTime() + periodLength * 86400000)) {
             dayElement.classList.add("menstruation");
         }
 
-        // Kiểm tra nếu ngày thuộc thời kỳ màu mỡ
         if (fertileStart && fertileEnd && fullDate >= fertileStart && fullDate <= fertileEnd) {
             dayElement.classList.add("fertile");
         }
 
-        // Kiểm tra nếu ngày là ngày rụng trứng
         if (ovulationDate && fullDate.toDateString() === ovulationDate.toDateString()) {
             dayElement.classList.add("ovulation");
         }
@@ -193,16 +298,13 @@ function generateCalendar(month, year) {
     }
 }
 
-// Hiển thị form nhập dữ liệu khi nhấn nút
 document.addEventListener("DOMContentLoaded", function() {
     const cycleFormContainer = document.getElementById("cycle-form-container");
 
     window.toggleCycleForm = function() {
         cycleFormContainer.style.display = cycleFormContainer.style.display === "none" ? "block" : "none";
     };
-});
 
-document.addEventListener("DOMContentLoaded", function() {
     const token = localStorage.getItem("token");
 
     if (!token) {

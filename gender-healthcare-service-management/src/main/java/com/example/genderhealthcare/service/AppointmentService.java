@@ -21,4 +21,8 @@ public class AppointmentService {
     public List<Appointment> findByUserId(Long userId) {
         return appointmentRepository.findByUserId(userId);
     }
+
+    public void deleteAppointment(Long appointmentId) {
+        appointmentRepository.deleteById(appointmentId);
+    }
 }

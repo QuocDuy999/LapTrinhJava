@@ -27,7 +27,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/customer").permitAll()
+                .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/customer", "/api/consultant/list").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/manager/**").hasRole("MANAGER")
                 .anyRequest().authenticated()
@@ -47,10 +47,9 @@ public class SecurityConfig {
                 .tokenValiditySeconds(7 * 24 * 60 * 60) // 7 days
                 .rememberMeParameter("remember-me")
             );
-
+    
         return http.build();
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

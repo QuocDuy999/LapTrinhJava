@@ -51,7 +51,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link " onclick="showHistory()">
                             <i class="fas fa-history"></i>
                             Lịch sử
                         </a>
@@ -63,7 +63,6 @@
                         </a>
                     </li>
                     <li class="nav-item" style="margin-top: 2rem;">
-                        <!-- Form đăng xuất -->
                         <form th:action="@{/logout}" method="post" style="margin: 0;">
                             <button type="submit" class="nav-link logout-btn">
                                 <i class="fas fa-sign-out-alt"></i>
@@ -87,7 +86,7 @@
                         <i class="fas fa-plus"></i>
                         Nhập dữ liệu chu kỳ
                     </a>
-                    <a href="#" class="btn btn-primary">
+                    <a href="#" class="btn btn-primary" onclick="toggleAppointmentForm()">
                         <i class="fas fa-calendar-plus"></i>
                         Đặt lịch tư vấn
                     </a>
@@ -100,15 +99,32 @@
                 <form id="cycle-form">
                     <label for="lastPeriodDate">Ngày bắt đầu kỳ kinh gần nhất:</label>
                     <input type="date" id="lastPeriodDate" required>
-            
                     <label for="cycleLength">Độ dài chu kỳ (số ngày):</label>
                     <input type="number" id="cycleLength" placeholder="Nhập số ngày" required>
-            
                     <label for="periodLength">Số ngày hành kinh:</label>
                     <input type="number" id="periodLength" placeholder="Nhập số ngày" required>
-            
                     <button type="submit" class="btn-save">Lưu chu kỳ</button>
                 </form>
+            </div>
+
+            <!-- Form đặt lịch tư vấn -->
+            <div id="appointment-form-container" style="display: none;">
+                <h2>Đặt lịch tư vấn</h2>
+                <form id="appointment-form">
+                    <label for="appointmentDate">Ngày giờ tư vấn:</label>
+                    <input type="datetime-local" id="appointmentDate" required>
+                    <label for="consultant">Tư vấn viên:</label>
+                    <select id="consultant" name="consultantId" required>
+                        <option value="">Chọn tư vấn viên</option>
+                    </select>
+                    <button type="submit" class="btn-save">Đặt lịch</button>
+                </form>
+            </div>
+
+            <!-- Lịch sử tư vấn -->
+            <div id="history-section" style="display: none;">
+                <h2>Lịch sử tư vấn</h2>
+                <div id="appointment-list"></div>
             </div>
 
             <!-- Stats Cards -->
@@ -122,7 +138,6 @@
                     </div>
                     <div class="stat-value" id="cycle-length-display">--</div>
                 </div>
-            
                 <div class="stat-card">
                     <div class="stat-header">
                         <span class="stat-title">Rụng trứng dự báo</span>
@@ -133,7 +148,6 @@
                     <div class="stat-value" id="ovulation-date-display">--</div>
                     <div class="stat-change"></div>
                 </div>
-            
                 <div class="stat-card">
                     <div class="stat-header">
                         <span class="stat-title">Khả năng thụ thai</span>
@@ -143,7 +157,6 @@
                     </div>
                     <div class="stat-value" id="fertile-period-display">--</div>
                 </div>
-            
                 <div class="stat-card">
                     <div class="stat-header">
                         <span class="stat-title">Điểm sức khỏe</span>
@@ -168,7 +181,7 @@
                             <button class="month-nav next">></button>
                         </div>
                     </div>
-                    <div class="calendar"></div> <!-- Lịch sẽ được tạo động bằng JavaScript -->
+                    <div class="calendar"></div>
                 </div>                
 
                 <!-- Predictions Panel -->
@@ -197,6 +210,7 @@
                         <span class="prediction-date"><span id="fertile-month-display"></span></span>
                     </div>
                 </div>
+            </div>
         </main>
     </div>
     <script th:src="@{/js/customer.js}"></script>

@@ -22,10 +22,14 @@ public class Appointment {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "consultant_id")
+    private Consultant consultant;
+
     private LocalDateTime appointmentDate;
 
     // Getters và Setters
-    public Long getId() { // Đảm bảo có phương thức này
+    public Long getId() {
         return id;
     }
 
@@ -39,6 +43,14 @@ public class Appointment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Consultant getConsultant() {
+        return consultant;
+    }
+
+    public void setConsultant(Consultant consultant) {
+        this.consultant = consultant;
     }
 
     public LocalDateTime getAppointmentDate() {

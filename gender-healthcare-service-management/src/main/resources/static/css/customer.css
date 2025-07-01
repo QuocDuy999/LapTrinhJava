@@ -220,7 +220,7 @@ body {
 
 .section-header {
     display: flex;
-    justify-content: between;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
 }
@@ -373,8 +373,8 @@ body {
     font-size: 0.9rem;
 }
 
-/* Form nhập dữ liệu chu kỳ */
-#cycle-form-container {
+/* Form nhập dữ liệu chu kỳ và đặt lịch */
+#cycle-form-container, #appointment-form-container {
     display: none;
     max-width: 600px;
     margin: 20px auto;
@@ -385,8 +385,38 @@ body {
     color: white;
 }
 
+#history-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.appointment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.appointment-item button {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.appointment-item button:hover {
+    background: #b91c1c;
+}
+
 /* Tiêu đề form */
-#cycle-form-container h2 {
+#cycle-form-container h2, #appointment-form-container h2 {
     text-align: center;
     font-size: 1.8rem;
     margin-bottom: 20px;
@@ -406,8 +436,8 @@ label {
     font-size: 1rem;
 }
 
-/* Định dạng input */
-input {
+/* Định dạng input và select */
+input, select {
     padding: 12px;
     border: none;
     border-radius: 8px;
@@ -417,12 +447,12 @@ input {
     outline: none;
 }
 
-input::placeholder {
+input::placeholder, select::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
 /* Hiệu ứng focus */
-input:focus {
+input:focus, select:focus {
     background: rgba(255, 255, 255, 0.3);
 }
 
@@ -446,7 +476,7 @@ input:focus {
 }
 
 /* Hiệu ứng hiển thị form */
-#cycle-form-container.show {
+#cycle-form-container.show, #appointment-form-container.show {
     display: block;
     animation: fadeIn 0.3s ease-in-out;
 }
@@ -489,4 +519,20 @@ input:focus {
     margin-right: 1rem;
     width: 20px;
     text-align: center;
+}
+
+#consultant {
+    color: #000000;
+}
+
+#consultant option {
+    color: #000000;
+}
+
+#consultant option[value=""] {
+    color: #000000;
+}
+
+#consultant:focus {
+    color: #000000;
 }
