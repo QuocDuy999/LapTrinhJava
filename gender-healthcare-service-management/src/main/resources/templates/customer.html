@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer - Gender Healthcare Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/customer.css}" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Gender Healthcare</h2>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600;"></div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Khách hàng</div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Theo dõi chu kỳ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user-md"></i>
+                            Tư vấn trực tuyến
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-question-circle"></i>
+                            Hỏi đáp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-vial"></i>
+                            Xét nghiệm STIs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link " onclick="showHistory()">
+                            <i class="fas fa-history"></i>
+                            Lịch sử
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user-circle"></i>
+                            Hồ sơ cá nhân
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-top: 2rem;">
+                        <form th:action="@{/logout}" method="post" style="margin: 0;">
+                            <button type="submit" class="nav-link logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Đăng xuất
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="welcome-text">
+                    <h1>Chào mừng trở lại!</h1>
+                </div>
+                <div class="quick-actions">
+                    <a href="#" class="btn btn-primary" onclick="toggleCycleForm()">
+                        <i class="fas fa-plus"></i>
+                        Nhập dữ liệu chu kỳ
+                    </a>
+                    <a href="#" class="btn btn-primary" onclick="toggleAppointmentForm()">
+                        <i class="fas fa-calendar-plus"></i>
+                        Đặt lịch tư vấn
+                    </a>
+                </div>
+            </div>
+
+            <!-- Form nhập dữ liệu chu kỳ -->
+            <div id="cycle-form-container" style="display: none;">
+                <h2>Nhập dữ liệu chu kỳ</h2>
+                <form id="cycle-form">
+                    <label for="lastPeriodDate">Ngày bắt đầu kỳ kinh gần nhất:</label>
+                    <input type="date" id="lastPeriodDate" required>
+                    <label for="cycleLength">Độ dài chu kỳ (số ngày):</label>
+                    <input type="number" id="cycleLength" placeholder="Nhập số ngày" required>
+                    <label for="periodLength">Số ngày hành kinh:</label>
+                    <input type="number" id="periodLength" placeholder="Nhập số ngày" required>
+                    <button type="submit" class="btn-save">Lưu chu kỳ</button>
+                </form>
+            </div>
+
+            <!-- Form đặt lịch tư vấn -->
+            <div id="appointment-form-container" style="display: none;">
+                <h2>Đặt lịch tư vấn</h2>
+                <form id="appointment-form">
+                    <label for="appointmentDate">Ngày giờ tư vấn:</label>
+                    <input type="datetime-local" id="appointmentDate" required>
+                    <label for="consultant">Tư vấn viên:</label>
+                    <select id="consultant" name="consultantId" required>
+                        <option value="">Chọn tư vấn viên</option>
+                    </select>
+                    <button type="submit" class="btn-save">Đặt lịch</button>
+                </form>
+            </div>
+
+            <!-- Lịch sử tư vấn -->
+            <div id="history-section" style="display: none;">
+                <h2>Lịch sử tư vấn</h2>
+                <div id="appointment-list"></div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Chu kỳ hiện tại</span>
+                        <div class="stat-icon cycle">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="cycle-length-display">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Rụng trứng dự báo</span>
+                        <div class="stat-icon ovulation">
+                            <i class="fas fa-egg"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="ovulation-date-display">--</div>
+                    <div class="stat-change"></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Khả năng thụ thai</span>
+                        <div class="stat-icon fertility">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="fertile-period-display">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Điểm sức khỏe</span>
+                        <div class="stat-icon health">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="health-score-display">--</div>
+                    <div class="stat-change"></div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Cycle Calendar -->
+                <div class="calendar-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Lịch chu kỳ</h3>
+                        <div class="calendar-nav">
+                            <button class="month-nav prev"><</button>
+                            <span class="current-month">Tháng , năm</span>
+                            <button class="month-nav next">></button>
+                        </div>
+                    </div>
+                    <div class="calendar"></div>
+                </div>                
+
+                <!-- Predictions Panel -->
+                <div class="predictions-panel">
+                    <div class="section-header">
+                        <h3 class="section-title">Dự đoán</h3>
+                    </div>
+                    <div class="prediction-item menstruation">
+                        <div class="prediction-icon menstruation">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="prediction-text">
+                            <h4>Ngày hành kinh tiếp theo</h4>
+                            <p>Dự đoán bắt đầu vào ngày <span id="menstruation-date-display"></span></p>
+                        </div>
+                        <span class="prediction-date"><span id="menstruation-month-display"></span></span>
+                    </div>                    
+                    <div class="prediction-item fertile">
+                        <div class="prediction-icon fertile">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="prediction-text">
+                            <h4>Thời kỳ màu mỡ</h4>
+                            <p>Khả năng thụ thai cao từ ngày <span id="fertile-start-display"></span>-<span id="fertile-end-display"></span></p>
+                        </div>
+                        <span class="prediction-date"><span id="fertile-month-display"></span></span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script th:src="@{/js/customer.js}"></script>
+</body>
+</html>
