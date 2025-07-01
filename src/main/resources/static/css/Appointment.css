@@ -6,20 +6,18 @@ body {
   color: #333;
   position: relative;
   z-index: 1;
+  animation: fadeIn 1s ease-in;
 }
 
-/* Lớp phủ trắng mờ giúp nội dung rõ ràng */
 body::before {
   content: "";
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(81, 79, 79, 0.85);
   z-index: -1;
+  animation: bgPulse 5s ease-in-out infinite;
 }
 
-
-
-/* Container chính */
 .container {
   max-width: 1000px;
   margin: auto;
@@ -27,9 +25,9 @@ body::before {
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  animation: slideUp 0.7s ease-out;
 }
 
-/* Form */
 input,
 select,
 button {
@@ -38,8 +36,16 @@ button {
   margin: 12px 0;
   padding: 12px;
   border-radius: 6px;
-  border: 1px solid #ced4da;
+  border: 1px solid #7e7f81;
   font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+input:hover,
+select:hover {
+  background-color: #f0faff;
+  border-color: #5c9ded;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
 }
 
 input:focus,
@@ -56,14 +62,35 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 button:hover {
   background-color: #218838;
+  box-shadow: 0 0 10px #28a745aa;
 }
 
-/* Header */
+button:active {
+  transform: scale(0.98);
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+button:hover::after {
+  left: 125%;
+}
+
 header {
   text-align: center;
   margin-bottom: 30px;
@@ -79,7 +106,6 @@ header p {
   font-size: 16px;
 }
 
-/* Tiêu đề phần */
 h2 {
   margin-top: 30px;
   color: #007bff;
@@ -89,7 +115,6 @@ h2 {
   margin-bottom: 15px;
 }
 
-/* Thông tin */
 .info-section,
 .doctor-intro {
   background-color: #e0f7fa;
@@ -97,6 +122,9 @@ h2 {
   border-radius: 10px;
   margin-top: 20px;
   border: 1px solid #b2ebf2;
+  animation: fadeSlide 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 .doctor-card {
@@ -105,19 +133,25 @@ h2 {
   padding: 16px;
   border-radius: 8px;
   margin-top: 12px;
+  transition: 0.3s ease;
+  cursor: pointer;
 }
 
-.doctor-card p {
-  margin: 6px 0;
+.doctor-card:hover {
+  transform: scale(1.02) rotate(-0.3deg);
+  box-shadow: 0 10px 20px rgba(103, 58, 183, 0.3);
+  background-color: #ede6ff;
 }
 
-/* Bảng */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   border-radius: 8px;
   overflow: hidden;
+  animation: fadeSlide 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 table th {
@@ -131,13 +165,19 @@ table td {
   padding: 12px;
   border: 1px solid #dee2e6;
   background-color: #ffffff;
+  transition: all 0.3s ease;
 }
 
 table tr:nth-child(even) td {
   background-color: #f1f3f5;
 }
 
-/* Footer */
+table tr:hover td {
+  background-color: #d1ecff;
+  transform: scale(1.005);
+  color: #000;
+}
+
 footer {
   text-align: center;
   margin-top: 50px;
@@ -145,4 +185,41 @@ footer {
   font-size: 15px;
   color: #6c757d;
   border-top: 1px solid #dee2e6;
+}
+
+/* Animation keyframes */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeSlide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bgPulse {
+  0%, 100% {
+    background: rgba(81, 79, 79, 0.85);
+  }
+  50% {
+    background: rgba(81, 79, 79, 0.7);
+  }
 }
