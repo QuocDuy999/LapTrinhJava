@@ -1,0 +1,148 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background: url('/img/AnhDatLich.jpg') no-repeat center center fixed;
+  background-size: cover;
+  padding: 20px;
+  color: #333;
+  position: relative;
+  z-index: 1;
+}
+
+/* Lớp phủ trắng mờ giúp nội dung rõ ràng */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(81, 79, 79, 0.85);
+  z-index: -1;
+}
+
+
+
+/* Container chính */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  background: #a2def7;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Form */
+input,
+select,
+button {
+  display: block;
+  width: 100%;
+  margin: 12px 0;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  font-size: 15px;
+}
+
+input:focus,
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+button {
+  background-color: #28a745;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  color: #343a40;
+  font-size: 32px;
+}
+
+header p {
+  color: #6c757d;
+  font-size: 16px;
+}
+
+/* Tiêu đề phần */
+h2 {
+  margin-top: 30px;
+  color: #007bff;
+  font-size: 22px;
+  border-left: 4px solid #007bff;
+  padding-left: 10px;
+  margin-bottom: 15px;
+}
+
+/* Thông tin */
+.info-section,
+.doctor-intro {
+  background-color: #e0f7fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  border: 1px solid #b2ebf2;
+}
+
+.doctor-card {
+  background-color: #f3e8ff;
+  border: 1px solid #dabfff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+.doctor-card p {
+  margin: 6px 0;
+}
+
+/* Bảng */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table th {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+table td {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  background-color: #ffffff;
+}
+
+table tr:nth-child(even) td {
+  background-color: #f1f3f5;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 12px;
+  font-size: 15px;
+  color: #6c757d;
+  border-top: 1px solid #dee2e6;
+}

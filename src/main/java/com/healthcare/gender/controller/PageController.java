@@ -14,5 +14,8 @@ public class PageController {
     public String cyclePage() {
         return "cycle"; // file templates/cycle.html (nếu dùng Thymeleaf)
     }
+    @GetMapping("/appointment")
+    public String appointmentPage() {   
+        return "appointment"; // file templates/appointment.html (nếu dùng Thymeleaf)
+    }
 }
-

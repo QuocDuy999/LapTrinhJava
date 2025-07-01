@@ -18,7 +18,8 @@ public class AppointmentService {
         appointmentRepository.save(appointment);
     }
 
-    public List<Appointment> findByUserId(Long userId) {
-        return appointmentRepository.findByUserId(userId);
+    public List<Appointment> findByUsername(String username) {
+        return appointmentRepository.findByUserUsername(username);
     }
+
 }

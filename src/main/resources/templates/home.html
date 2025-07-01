@@ -6,199 +6,198 @@
     <title>Gender Healthcare - Chăm sóc sức khỏe giới tính chuyên nghiệp</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link th:href="@{/css/home.css}" rel ="stylesheet">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-heartbeat"></i> Gender Healthcare
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home">Trang chủ</a></li>
-                <li><a href="#features">Giới thiệu</a></li>
-                <li><a href="#services">Dịch vụ</a></li>
-                <li><a href="#footer">Liên hệ</a></li>
-            </ul>
-            <div class="auth-buttons">
-                <a href="/login" class="btn btn-outline">Đăng nhập</a>
-                <a href="/register" class="btn btn-primary">Đăng ký</a>
-            </div>
-            <div class="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Chăm sóc sức khỏe giới tính chuyên nghiệp</h1>
-            <p>Cung cấp dịch vụ tư vấn, xét nghiệm và theo dõi sức khỏe sinh sản toàn diện với đội ngũ chuyên gia hàng đầu</p>
-            <div class="hero-buttons">
-                <a href="#" class="btn btn-primary">Đặt lịch tư vấn</a>
-                <a href="#" class="btn btn-outline">Tìm hiểu thêm</a>
-            </div>
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <i class="fas fa-heartbeat"></i> Gender Healthcare
         </div>
-        <div class="scroll-indicator">
-            <i class="fas fa-chevron-down"></i>
+        <ul class="nav-menu">
+            <li><a href="#home">Trang chủ</a></li>
+            <li><a href="#features">Giới thiệu</a></li>
+            <li><a href="#services">Dịch vụ</a></li>
+            <li><a href="#testimonials">Đánh giá</a></li>
+            <li><a href="#footer">Liên hệ</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <a href="/login" class="btn btn-outline">Đăng nhập</a>
+            <a href="/register" class="btn btn-primary">Đăng ký</a>
         </div>
-    </section>
+        <div class="mobile-menu">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</nav>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Tại sao chọn chúng tôi?</h2>
-                <p>Chúng tôi cung cấp dịch vụ chăm sóc sức khỏe giới tính toàn diện với công nghệ hiện đại và đội ngũ chuyên gia giàu kinh nghiệm</p>
+<!-- Hero -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>Chăm sóc sức khỏe giới tính chuyên nghiệp</h1>
+        <p>Cung cấp dịch vụ tư vấn, xét nghiệm và theo dõi sức khỏe sinh sản toàn diện</p>
+        <div class="hero-buttons">
+            <a href="#" class="btn btn-primary">Đặt lịch tư vấn</a>
+            <a href="#features" class="btn btn-outline">Tìm hiểu thêm</a>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+    <div class="container">
+        <div class="section-title">
+            <h2>Tại sao chọn chúng tôi?</h2>
+            <p>Chúng tôi cung cấp dịch vụ chăm sóc sức khỏe giới tính toàn diện</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up">
+                <div class="feature-icon"><i class="fas fa-user-md"></i></div>
+                <h3>Chuyên gia</h3>
+                <p>Đội ngũ bác sĩ và chuyên gia giàu kinh nghiệm, tận tâm.</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-icon">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <h3>Đội ngũ chuyên gia</h3>
-                    <p>Bác sĩ và tư vấn viên được đào tạo chuyên sâu về sức khỏe sinh sản và giới tính</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Bảo mật tuyệt đối</h3>
-                    <p>Thông tin cá nhân được bảo vệ tuyệt đối theo tiêu chuẩn y tế quốc tế</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="feature-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3>Phục vụ 24/7</h3>
-                    <p>Hỗ trợ tư vấn trực tuyến và cấp cứu 24 giờ mỗi ngày, 7 ngày trong tuần</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Ứng dụng di động</h3>
-                    <p>Theo dõi chu kỳ sinh sản, đặt lịch và nhận thông báo qua ứng dụng</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Theo dõi chi tiết</h3>
-                    <p>Báo cáo sức khỏe định kỳ và phân tích xu hướng cá nhân hóa</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="feature-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Giáo dục sức khỏe</h3>
-                    <p>Kiến thức và hướng dẫn từ các chuyên gia về chăm sóc sức khỏe sinh sản</p>
-                </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Bảo mật</h3>
+                <p>Bảo mật thông tin tuyệt đối với hệ thống lưu trữ hiện đại.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon"><i class="fas fa-laptop-medical"></i></div>
+                <h3>Công nghệ</h3>
+                <p>Ứng dụng công nghệ thông minh giúp theo dõi sức khỏe hiệu quả.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Dịch vụ của chúng tôi</h2>
-                <p>Cung cấp đầy đủ các dịch vụ chăm sóc sức khỏe giới tính từ cơ bản đến chuyên sâu</p>
+<!-- Services -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="section-title">
+            <h2>Dịch vụ của chúng tôi</h2>
+            <p>Cung cấp các dịch vụ chăm sóc sức khỏe giới tính chuyên sâu</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card" data-aos="zoom-in">
+                <h3><i class="fas fa-calendar-alt"></i> Theo dõi chu kỳ</h3>
+                <p>Ghi nhận và dự đoán chu kỳ kinh nguyệt, ngày rụng trứng, thời kỳ màu mỡ.</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <h3><i class="fas fa-calendar-alt"></i> Theo dõi chu kỳ</h3>
-                    <p>Theo dõi chu kỳ kinh nguyệt, dự đoán ngày rụng trứng và khả năng thụ thai</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
-                    <h3><i class="fas fa-video"></i> Tư vấn trực tuyến</h3>
-                    <p>Tư vấn với chuyên gia qua video call bảo mật và an toàn</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
-                    <h3><i class="fas fa-vial"></i> Xét nghiệm STIs</h3>
-                    <p>Xét nghiệm các bệnh lây truyền qua đường tình dục với kết quả nhanh chóng</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
-                    <h3><i class="fas fa-question-circle"></i> Hỏi đáp chuyên gia</h3>
-                    <p>Đặt câu hỏi và nhận câu trả lời từ các chuyên gia y tế</p>
-                </div>
+            <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <h3><i class="fas fa-vials"></i> Xét nghiệm sức khỏe</h3>
+                <p>Thực hiện các xét nghiệm nhanh và chính xác về nội tiết và sinh sản.</p>
+            </div>
+            <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                <h3><i class="fas fa-headset"></i> Tư vấn online</h3>
+                <p>Kết nối với chuyên gia qua video call, bảo mật và tiện lợi.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item" data-aos="fade-up">
-                    <h3 class="counter" data-count="10000">0</h3>
-                    <p>Khách hàng tin tưởng</p>
-                </div>
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="counter" data-count="50">0</h3>
-                    <p>Chuyên gia y tế</p>
-                </div>
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="counter" data-count="5">0</h3>
-                    <p>Năm kinh nghiệm</p>
-                </div>
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="counter" data-count="99">0</h3>
-                    <p>% Khách hàng hài lòng</p>
-                </div>
+<!-- Testimonials -->
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <h2>Khách hàng nói gì?</h2>
+        <div class="testimonial-card" data-aos="fade-up">
+            <p>"Dịch vụ rất chuyên nghiệp và nhân viên tư vấn thân thiện. Tôi cảm thấy được lắng nghe và hỗ trợ."</p>
+            <h4>- Mai Lan</h4>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+            <p>"Ứng dụng theo dõi chu kỳ rất tiện lợi và dễ dùng. Cảm ơn đội ngũ phát triển!"</p>
+            <h4>- Ngọc Anh</h4>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+    <div class="container">
+        <h2>Câu hỏi thường gặp</h2>
+        <div class="faq-item" data-aos="fade-up">
+            <h4>Đăng ký tài khoản có miễn phí không?</h4>
+            <p>Có! Bạn có thể bắt đầu sử dụng các tính năng cơ bản miễn phí.</p>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+            <h4>Tôi có thể xóa tài khoản khi không cần dùng nữa không?</h4>
+            <p>Chúng tôi tôn trọng quyền riêng tư của bạn và luôn cho phép xóa tài khoản bất kỳ lúc nào.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Partners -->
+<section class="partners">
+    <div class="container">
+        <h2>Đối tác của chúng tôi</h2>
+        <div class="partners-logos" data-aos="fade-up">
+            <img src="/img/Partner1.png" alt="Partner 1">
+            <img src="/img/Partner2.jpg" alt="Partner 2">
+            <img src="/img/Partner3.jpg" alt="Partner 3">
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <div class="container">
+        <h2>Bắt đầu chăm sóc sức khỏe ngay</h2>
+        <p>Đăng ký tài khoản để nhận nhiều tiện ích và dịch vụ cá nhân hóa phù hợp với bạn.</p>
+        <a href="/register" class="btn btn-primary">Đăng ký ngay</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" id="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Gender Healthcare</h3>
+                <p>Chăm sóc sức khỏe giới tính toàn diện và hiện đại cho mọi người.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên hệ</h3>
+                <p><i class="fas fa-phone"></i> 1900 1234</p>
+                <p><i class="fas fa-envelope"></i> info@genderhealthcare.com</p>
             </div>
         </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <h2>Bắt đầu chăm sóc sức khỏe của bạn ngay hôm nay</h2>
-            <p>Đăng ký tài khoản miễn phí để trải nghiệm các dịch vụ chăm sóc sức khỏe giới tính chuyên nghiệp</p>
-            <a href="/src/main/resources/templates/register.html" class="btn btn-primary">Đăng ký ngay</a>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Gender Healthcare. All rights reserved.</p>
         </div>
-    </section>
+    </div>
+</footer>
 
-    <!-- Footer -->
-    <footer class="footer" id="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Gender Healthcare</h3>
-                    <p>Chăm sóc sức khỏe giới tính chuyên nghiệp với đội ngũ chuyên gia hàng đầu và công nghệ hiện đại.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Dịch vụ</h3>
-                    <a href="#">Theo dõi chu kỳ</a>
-                    <a href="#">Tư vấn trực tuyến</a>
-                    <a href="#">Xét nghiệm STIs</a>
-                    <a href="#">Hỏi đáp chuyên gia</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Hỗ trợ</h3>
-                    <a href="#">Trung tâm trợ giúp</a>
-                    <a href="#">Liên hệ</a>
-                    <a href="#">Câu hỏi thường gặp</a>
-                    <a href="#">Chính sách bảo mật</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Liên hệ</h3>
-                    <p><i class="fas fa-phone"></i> 1900 1234</p>
-                    <p><i class="fas fa-envelope"></i> info@genderhealthcare.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, TP.HCM</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Gender Healthcare. Tất cả quyền được bảo lưu.</p>
-            </div>
-        </div>
-    </footer>
+<!-- Back to Top -->
+<button id="backToTop" title="Lên đầu trang"><i class="fas fa-chevron-up"></i></button>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="/src/main/resources/static/js/home.js"></script>
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init();
+
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+        document.getElementById("backToTop").style.display = window.scrollY > 300 ? "block" : "none";
+    });
+
+    // Back to top
+    document.getElementById("backToTop").onclick = function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Mobile menu
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
+    mobileMenu.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+    });
+</script>
+
 </body>
 </html>

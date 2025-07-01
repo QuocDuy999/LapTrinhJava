@@ -51,7 +51,8 @@ public class SecurityConfig {
                     "/favicon.ico",
                     "/customer",
                     "/home",
-                    "/cycle"
+                    "/cycle",
+                    "/appointment"
                 ).permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()

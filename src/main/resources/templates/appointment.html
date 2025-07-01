@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đặt Lịch Khám Bệnh</title>
+  <link rel="stylesheet" href="/css/Appointment.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🏥 Hệ Thống Đặt Lịch Khám Bệnh Trực Tuyến</h1>
+      <p>Chăm sóc sức khỏe tận tâm - Đặt lịch nhanh chóng</p>
+    </header>
+
+    <section class="form-section">
+      <h2>📅 Đặt Lịch Khám</h2>
+      <form id="appointment-form">
+        <select id="department" required>
+          <option value="">Chọn khoa khám</option>
+          <option value="Nội tổng quát">Nội tổng quát</option>
+          <option value="Ngoại chấn thương">Ngoại chấn thương</option>
+          <option value="Nhi">Nhi</option>
+          <option value="Sản phụ khoa">Sản phụ khoa</option>
+          <option value="Tai mũi họng">Tai mũi họng</option>
+        </select>
+
+        <select id="doctorName" required>
+          <option value="">Chọn bác sĩ</option>
+        </select>
+
+        <input type="text" id="illness" placeholder="Triệu chứng bệnh" required />
+        <input type="date" id="date" required />
+        <input type="time" id="time" required />
+        <button type="submit">Đặt lịch</button>
+      </form>
+    </section>
+
+    <section class="history-section">
+      <h2>📖 Lịch Sử Đặt Lịch</h2>
+      <p id="patient-name" style="font-weight: bold;"></p>
+
+      <table id="history-table" border="1" cellpadding="8" cellspacing="0">
+        <thead>
+          <tr>
+            <th>🕒 Thời gian</th>
+            <th>🏥 Khoa</th>
+            <th>👨‍⚕️ Bác sĩ</th>
+            <th>💬 Triệu chứng</th>
+            <th>📌 Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody id="history"></tbody>
+      </table>
+    </section>
+
+    <section class="info-section">
+      <h2>🩺 Thông Tin Bệnh Viện</h2>
+      <p>Chúng tôi là cơ sở y tế hàng đầu cung cấp các dịch vụ khám và điều trị chuyên sâu với đội ngũ y bác sĩ giàu kinh nghiệm.</p>
+      <ul>
+        <li>⏰ Giờ làm việc: 7:00 - 17:00 từ Thứ 2 đến Thứ 7</li>
+        <li>📍 Địa chỉ: 123 Đường Sức Khỏe, Quận 1, TP.HCM</li>
+        <li>📞 Tổng đài: 1800 123 456</li>
+      </ul>
+    </section>
+
+    <section class="doctor-intro">
+      <h2>👨‍⚕️ Đội Ngũ Bác Sĩ</h2>
+      <div class="doctor-card">
+        <p><strong>TS.BS Nguyễn Văn Hoàng</strong> - Chuyên khoa Nội tổng quát</p>
+        <p><strong>BSCKII Trần Thị Phương</strong> - Chuyên khoa Sản phụ khoa</p>
+        <p><strong>BS Trần Thị Thủy</strong> - Chuyên khoa Nhi</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Bệnh viện Sức Khỏe Việt - Mọi quyền được bảo lưu.</p>
+    </footer>
+  </div>
+
+  <script src="/js/Appointment.js"></script>
+</body>
+</html>

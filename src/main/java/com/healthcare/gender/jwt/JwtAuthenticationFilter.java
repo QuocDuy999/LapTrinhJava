@@ -53,10 +53,11 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
 
 
 
-        @Override
+    @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getServletPath();
-        return path.startsWith("/auth/login") || path.startsWith("/auth/register");
-    }   
+        return path.startsWith("/api/auth");
+    }
+ 
 
 }

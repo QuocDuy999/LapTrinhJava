@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.healthcare.gender.model.entity.Appointment;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    List<Appointment> findByUserId(Long userId);
+    List<Appointment> findByUserUsername(String username); // ✅ Đúng
+
 }

@@ -1,5 +1,6 @@
 package com.healthcare.gender.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import com.healthcare.gender.model.entity.User;
@@ -12,4 +13,6 @@ public interface MenstrualCycleRepository extends JpaRepository<MenstrualCycle, 
     List<MenstrualCycle> findByUserId(Long userId);
     Optional<MenstrualCycle> findTopByUserOrderByLastPeriodDateDesc(User user);
     MenstrualCycle findTopByUserIdOrderByLastPeriodDateDesc(Long userId);
+    Optional<MenstrualCycle> findByUserIdAndLastPeriodDate(Long userId, LocalDate lastPeriodDate);
+    MenstrualCycle findTopByUserIdOrderByCreatedAtDesc(Long userId);
 }
