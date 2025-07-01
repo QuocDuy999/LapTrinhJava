@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theo dõi chu kỳ - Gender Healthcare</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/cycle.css}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>Theo dõi chu kỳ kinh nguyệt</h2>
+        <form id="cycle-form" action="/cycle/add" method="post">
+            <label for="lastPeriodDate">Ngày bắt đầu kỳ kinh gần nhất:</label>
+            <input type="date" id="lastPeriodDate" name="lastPeriodDate" required>
+
+            <label for="cycleLength">Độ dài chu kỳ (số ngày):</label>
+            <input type="number" id="cycleLength" name="cycleLength" required>
+
+            <label for="periodLength">Số ngày hành kinh:</label>
+            <input type="number" id="periodLength" name="periodLength" required>
+
+            <button type="submit" class="btn">Lưu chu kỳ</button>
+        </form>
+
+        <h3>Lịch sử chu kỳ</h3>
+        <ul id="cycle-history">
+            <li th:each="cycle : ${cycles}">
+                Kỳ kinh bắt đầu: <span th:text="${cycle.lastPeriodDate}"></span>,
+                Độ dài chu kỳ: <span th:text="${cycle.cycleLength}"></span> ngày,
+                Số ngày hành kinh: <span th:text="${cycle.periodLength}"></span> ngày
+            </li>
+        </ul>
+    </div>
+
+    <script th:src="@{/js/cycle.js}"></script>
+</body>
+</html>
