@@ -1,58 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Roboto', sans-serif;
-  background: url('/img/AnhDatLich.jpg') no-repeat center center fixed;
-  background-size: cover;
-  padding: 20px;
-  color: #333;
-  position: relative;
-  z-index: 1;
-  animation: fadeIn 1s ease-in;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8fafc;
+  color: #334155;
+  animation: fadeInBody 0.6s ease-in-out;
 }
 
-body::before {
-  content: "";
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem 0;
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(81, 79, 79, 0.85);
-  z-index: -1;
-  animation: bgPulse 5s ease-in-out infinite;
+  height: 100vh;
+  overflow-y: auto;
+  animation: fadeInSidebar 0.5s ease;
+}
+.sidebar-header {
+    padding: 0 2rem 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.sidebar-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.container {
-  max-width: 1000px;
-  margin: auto;
-  background: #a2def7;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  animation: slideUp 0.7s ease-out;
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
 }
 
-input,
-select,
-button {
-  display: block;
-  width: 100%;
-  margin: 12px 0;
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 2rem 0;
+}
+
+.nav-item {
+  margin-bottom: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border-right: 4px solid #fff;
+}
+
+.nav-link i {
+  margin-right: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2rem;
+  animation: slideInMain 0.5s ease-in-out;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: #1e293b;
+}
+
+header p {
+  font-size: 1rem;
+  color: #64748b;
+}
+
+/* Section Title */
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input, select, button {
   padding: 12px;
   border-radius: 6px;
-  border: 1px solid #7e7f81;
+  border: 1px solid #cbd5e1;
   font-size: 15px;
   transition: all 0.3s ease;
 }
 
-input:hover,
-select:hover {
+input:hover, select:hover {
   background-color: #f0faff;
   border-color: #5c9ded;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
 }
 
-input:focus,
-select:focus {
-  border-color: #007bff;
+input:focus, select:focus {
   outline: none;
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+  border-color: #007bff;
 }
 
 button {
@@ -60,23 +140,173 @@ button {
   color: white;
   font-size: 16px;
   border: none;
-  border-radius: 6px;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
+  transition: all 0.3s ease-in-out;
 }
 
 button:hover {
   background-color: #218838;
-  box-shadow: 0 0 10px #28a745aa;
+  box-shadow: 0 0 10px #28a74588;
 }
 
 button:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
 }
 
-button::after {
-  content: "";
+/* History Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  transition: all 0.3s ease;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f1f3f5;
+}
+
+tr:hover td {
+  background-color: #d1ecff;
+  transform: scale(1.01);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+}
+
+/* Doctor Info */
+.doctor-card {
+  background: #f3e8ff;
+  border: 1px solid #dabfff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.doctor-card:hover {
+  transform: scale(1.02);
+  background-color: #ede6ff;
+  box-shadow: 0 10px 20px rgba(103, 58, 183, 0.3);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 1rem;
+  font-size: 15px;
+  color: #6c757d;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Form nhập dữ liệu chu kỳ */
+#cycle-form-container {
+  display: none;
+  max-width: 600px;
+  margin: 20px auto;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  color: white;
+}
+
+#cycle-form-container.show {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+#cycle-form-container h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-save {
+  background: white;
+  color: #667eea;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-save:hover {
+  background: #e2e8f0;
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInBody {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInMain {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInSidebar {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/* Hiệu ứng ánh sáng lướt qua khi hover */
+button, .btn {
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button::after, .btn::after {
+  content: '';
   position: absolute;
   top: 0;
   left: -75%;
@@ -87,139 +317,24 @@ button::after {
   transition: left 0.5s ease;
 }
 
-button:hover::after {
+button:hover::after, .btn:hover::after {
   left: 125%;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 30px;
+/* Hiệu ứng khi bấm giữ */
+button:active, .btn:active {
+  transform: scale(0.97);
 }
-
-header h1 {
-  color: #343a40;
-  font-size: 32px;
-}
-
-header p {
-  color: #6c757d;
-  font-size: 16px;
-}
-
-h2 {
-  margin-top: 30px;
-  color: #007bff;
-  font-size: 22px;
-  border-left: 4px solid #007bff;
-  padding-left: 10px;
-  margin-bottom: 15px;
-}
-
-.info-section,
-.doctor-intro {
-  background-color: #e0f7fa;
-  padding: 20px;
-  border-radius: 10px;
-  margin-top: 20px;
-  border: 1px solid #b2ebf2;
-  animation: fadeSlide 0.8s ease forwards;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.doctor-card {
-  background-color: #f3e8ff;
-  border: 1px solid #dabfff;
-  padding: 16px;
-  border-radius: 8px;
-  margin-top: 12px;
-  transition: 0.3s ease;
-  cursor: pointer;
-}
-
-.doctor-card:hover {
-  transform: scale(1.02) rotate(-0.3deg);
-  box-shadow: 0 10px 20px rgba(103, 58, 183, 0.3);
-  background-color: #ede6ff;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  border-radius: 8px;
-  overflow: hidden;
-  animation: fadeSlide 0.8s ease forwards;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-table th {
-  background-color: #007bff;
+.cancel-btn {
+  background-color: #e11d48;
   color: white;
-  padding: 12px;
-  text-align: left;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-table td {
-  padding: 12px;
-  border: 1px solid #dee2e6;
-  background-color: #ffffff;
-  transition: all 0.3s ease;
-}
-
-table tr:nth-child(even) td {
-  background-color: #f1f3f5;
-}
-
-table tr:hover td {
-  background-color: #d1ecff;
-  transform: scale(1.005);
-  color: #000;
-}
-
-footer {
-  text-align: center;
-  margin-top: 50px;
-  padding: 12px;
-  font-size: 15px;
-  color: #6c757d;
-  border-top: 1px solid #dee2e6;
-}
-
-/* Animation keyframes */
-@keyframes slideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeSlide {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes bgPulse {
-  0%, 100% {
-    background: rgba(81, 79, 79, 0.85);
-  }
-  50% {
-    background: rgba(81, 79, 79, 0.7);
-  }
+.cancel-btn:hover {
+  background-color: #be123c;
 }

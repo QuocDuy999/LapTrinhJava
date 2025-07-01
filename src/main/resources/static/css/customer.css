@@ -8,6 +8,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #f8fafc;
     color: #334155;
+    animation: fadeInBody 0.6s ease-in-out;
 }
 
 .dashboard {

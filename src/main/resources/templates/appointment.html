@@ -3,18 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Đặt Lịch Khám Bệnh</title>
-  <link rel="stylesheet" href="/css/Appointment.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <title>Đặt Lịch Khám Bệnh - Gender Healthcare</title>
+   <link rel="stylesheet" href="css/Appointment.css" />
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>🏥 Hệ Thống Đặt Lịch Khám Bệnh Trực Tuyến</h1>
-      <p>Chăm sóc sức khỏe tận tâm - Đặt lịch nhanh chóng</p>
-    </header>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Gender Healthcare</h2>
+        <div class="user-info">
+          <div class="user-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div>
+            <div id="user-name-display" style="font-weight: 600;">Bệnh Nhân</div>
+            <div style="font-size: 0.8rem; opacity: 0.8;">Bệnh Nhân</div>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="/customer" class="nav-link">
+              <i class="fas fa-calendar-alt"></i> Theo dõi chu kỳ
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/appointment" class="nav-link active">
+              <i class="fas fa-calendar-plus"></i> Đặt lịch khám bệnh
+            </a>
+          </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link"><i class="fas fa-question-circle"></i> Hỏi Đáp</a>
+            </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fas fa-user-circle"></i> Hồ sơ cá nhân</a>
+          </li>
+          <li class="nav-item" style="margin-top: 2rem;">
+            <a href="/home" class="nav-link" id="logout-button">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
 
-    <!-- Giới thiệu -->
-    <section class="intro-section">
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <header>
+          <h1>🏥 Hệ Thống Đặt Lịch Khám Bệnh Trực Tuyến</h1>
+          <p>Chăm sóc sức khỏe tận tâm - Đặt lịch nhanh chóng</p>
+        </header>
+
+        <section class="intro-section">
       <h2>🌟 Giới Thiệu Bệnh Viện</h2>
       <p>Bệnh viện Sức Khỏe Việt là một trong những đơn vị y tế hàng đầu tại TP.HCM, cung cấp dịch vụ khám chữa bệnh chất lượng cao với đội ngũ y bác sĩ giàu kinh nghiệm, cơ sở vật chất hiện đại và thái độ phục vụ tận tình.</p>
     </section>
@@ -68,6 +112,7 @@
             <th>👨‍⚕️ Bác sĩ</th>
             <th>💬 Triệu chứng</th>
             <th>📌 Trạng thái</th>
+            <th>❌ Hủy</th>
           </tr>
         </thead>
         <tbody id="history"></tbody>

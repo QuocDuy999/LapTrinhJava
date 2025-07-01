@@ -7,12 +7,13 @@ import com.healthcare.gender.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import com.healthcare.gender.model.dto.AppointmentRequest;
 @RestController
 @RequestMapping("/api/appointment")
 @CrossOrigin
@@ -48,27 +49,24 @@ public class AppointmentController {
         String username = authentication.getName();
         return appointmentRepo.findByUserUsername(username);
     }
-}
 
-class AppointmentRequest {
-    private String department;
-    private String doctorName;
-    private String illness;
-    private String date;
-    private String time;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> cancelAppointment(@PathVariable Long id, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Chưa xác thực người dùng");
+        }
 
-    public String getDepartment() { return department; }
-    public void setDepartment(String department) { this.department = department; }
+        String username = authentication.getName();
+        Appointment appointment = appointmentRepo.findById(id).orElse(null);
+        if (appointment == null) {
+            return ResponseEntity.notFound().build();
+        }
 
-    public String getDoctorName() { return doctorName; }
-    public void setDoctorName(String doctorName) { this.doctorName = doctorName; }
+        if (!appointment.getUser().getUsername().equals(username)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Không có quyền hủy lịch này");
+        }
 
-    public String getIllness() { return illness; }
-    public void setIllness(String illness) { this.illness = illness; }
-
-    public String getDate() { return date; }
-    public void setDate(String date) { this.date = date; }
-
-    public String getTime() { return time; }
-    public void setTime(String time) { this.time = time; }
+        appointmentRepo.delete(appointment);
+        return ResponseEntity.ok("Đã hủy lịch hẹn");
+    }
 }

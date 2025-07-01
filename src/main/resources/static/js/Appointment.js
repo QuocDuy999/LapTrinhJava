@@ -39,14 +39,19 @@ async function loadPatientName() {
 
     if (res.ok) {
       const data = await res.json();
-      patientName.textContent = `Tên bệnh nhân: ${data.name}`;
+      const nameDisplay = document.getElementById("user-name-display");
+      const fullName = data.name || data.username;
+      if (nameDisplay) nameDisplay.textContent = fullName;
+      patientName.textContent = `Tên bệnh nhân: ${fullName}`;
     } else {
       patientName.textContent = "Không xác định được bệnh nhân";
     }
   } catch (error) {
+    console.error("Lỗi khi lấy thông tin người dùng:", error);
     patientName.textContent = "Lỗi khi lấy tên bệnh nhân";
   }
 }
+
 
 // Gửi yêu cầu đặt lịch khám
 form.addEventListener("submit", async (e) => {
@@ -87,7 +92,7 @@ async function loadHistory() {
     });
 
     if (!res.ok) {
-      historyList.innerHTML = "<tr><td colspan='5'>Lỗi tải lịch sử</td></tr>";
+      historyList.innerHTML = "<tr><td colspan='6'>Lỗi tải lịch sử</td></tr>";
       return;
     }
 
@@ -95,7 +100,7 @@ async function loadHistory() {
     historyList.innerHTML = "";
 
     if (list.length === 0) {
-      historyList.innerHTML = "<tr><td colspan='5'>Chưa có lịch sử khám</td></tr>";
+      historyList.innerHTML = "<tr><td colspan='6'>Chưa có lịch sử khám</td></tr>";
       return;
     }
 
@@ -113,15 +118,40 @@ async function loadHistory() {
         <td>${app.doctorName}</td>
         <td>${app.illness}</td>
         <td>${app.status}</td>
+        <td>
+          <button class="cancel-btn" data-id="${app.id}">Hủy</button>
+        </td>
       `;
       historyList.appendChild(row);
     });
 
+    // Gắn sự kiện hủy
+    document.querySelectorAll(".cancel-btn").forEach(button => {
+      button.addEventListener("click", async () => {
+        const id = button.getAttribute("data-id");
+        const confirmCancel = confirm("Bạn có chắc muốn hủy lịch khám này không?");
+        if (!confirmCancel) return;
+
+        const delRes = await fetch(`/api/appointment/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (delRes.ok) {
+          alert("Đã hủy lịch khám.");
+          loadHistory();
+        } else {
+          alert("Không thể hủy lịch khám.");
+        }
+      });
+    });
+
   } catch (error) {
-    historyList.innerHTML = "<tr><td colspan='5'>Lỗi kết nối máy chủ</td></tr>";
+    historyList.innerHTML = "<tr><td colspan='6'>Lỗi kết nối máy chủ</td></tr>";
   }
 }
-
 // Tải dữ liệu khi trang được load
 document.addEventListener("DOMContentLoaded", () => {
   loadPatientName();
