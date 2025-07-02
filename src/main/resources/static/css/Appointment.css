@@ -70,6 +70,7 @@ body {
     color: rgba(255,255,255,0.8);
     text-decoration: none;
     transition: all 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .nav-link:hover,
