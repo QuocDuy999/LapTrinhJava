@@ -47,12 +47,20 @@ public class SecurityConfig {
                     "/auth/register",
                     "/css/**",
                     "/js/**",
+                    "/img/**",
                     "/images/**",
                     "/favicon.ico",
                     "/customer",
                     "/home",
-                    "/appointment"
+                    "/appointment",
+                    "/questions",
+                    "/admin-role",
+                    "/admin-consultation"
                 ).permitAll()
+
+                // ✅ Đổi hasAnyRole → hasAuthority (để đồng bộ với @PreAuthorize)
+                .requestMatchers("/api/questions/answer/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_CONSULTANT")
+                .requestMatchers("/api/questions/admin/delete/**").hasAuthority("ROLE_ADMIN")
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
             )

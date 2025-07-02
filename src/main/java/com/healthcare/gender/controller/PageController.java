@@ -14,4 +14,16 @@ public class PageController {
     public String appointmentPage() {   
         return "appointment"; // file templates/appointment.html (nếu dùng Thymeleaf)
     }
+    @GetMapping("/questions")   
+    public String questionsPage() {
+        return "questions"; // Trả về file templates/questions.html
+    }
+    @GetMapping("/admin-role")
+    public String adminRolePage() {
+        return "admin-role"; // Trả về file templates/admin-role.html
+    }
+    @GetMapping("/admin-consultation")
+    public String adminConsultationPage() {
+        return "admin-consultation"; // Trả về file templates/admin-consultation.html
+    }
 }

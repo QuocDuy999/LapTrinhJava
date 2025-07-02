@@ -1,11 +1,14 @@
 package com.healthcare.gender.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,11 +39,18 @@ public class CustomerController {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng!"));
 
+        // Lấy danh sách role từ đối tượng Authentication
+            List<String> roles = auth.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority)
+            .collect(Collectors.toList());
+
         return ResponseEntity.ok(Map.of(
-                "id", user.getId(),
-                "email", user.getEmail(),
-                "name", user.getName() // Trả thêm tên người dùng
+            "id", user.getId(),
+            "email", user.getEmail(),
+            "name", user.getName(),
+            "roles", roles // ✅ Trả thêm danh sách role
         ));
+
     }
 
     @PostMapping("/cycle/add")
@@ -93,4 +103,4 @@ public class CustomerController {
                 "periodLength", latestCycle.getPeriodLength()
         ));
     }
-} 
+}

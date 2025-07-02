@@ -77,6 +77,7 @@ body {
     background: rgba(255,255,255,0.1);
     color: white;
     border-right: 4px solid #fff;
+    transform: translateX(4px);
 }
 
 .nav-link i {

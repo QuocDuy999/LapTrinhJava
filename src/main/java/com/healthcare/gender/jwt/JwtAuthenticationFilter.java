@@ -26,38 +26,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.userService = userService;
     }
 
-   @Override
-protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-        throws ServletException, IOException {
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws ServletException, IOException {
 
-    String authHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader("Authorization");
 
-    if (authHeader != null && authHeader.startsWith("Bearer ")) {
-        String token = authHeader.substring(7);
-        String username = jwtUtil.extractUsername(token);
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            String username = jwtUtil.extractUsername(token);
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userService.loadUserByUsername(username);
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = userService.loadUserByUsername(username);
 
-            if (jwtUtil.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                if (jwtUtil.validateToken(token, userDetails)) {
+                    UsernamePasswordAuthenticationToken authToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                    System.out.println("✅ Authorities from JWT: " + userDetails.getAuthorities());
+                } else {
+                    System.out.println("⚠️ Token không hợp lệ hoặc đã hết hạn!");
+                }
             }
         }
+
+        chain.doFilter(request, response);
     }
-
-    chain.doFilter(request, response);
-}
-
-
-
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        String path = request.getServletPath();
-        return path.startsWith("/api/auth");
-    }
- 
 
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trả lời câu hỏi - Admin</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/questions.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Admin Dashboard</h2>
+      </div>
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="fas fa-comments"></i>
+              Trả lời câu hỏi
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="top-bar">
+        <div class="welcome-text">
+          <h1>Danh sách câu hỏi từ người dùng</h1>
+          <p>Trả lời những thắc mắc về sức khỏe sinh sản và chu kỳ kinh nguyệt.</p>
+        </div>
+      </div>
+
+      <section class="history-section">
+        <div id="admin-question-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/admin-consultation.js"></script>
+</body>
+</html>

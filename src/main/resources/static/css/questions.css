@@ -1,0 +1,529 @@
+/* --- RESET & GLOBAL --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8fafc;
+  color: #334155;
+  animation: fadeInBody 0.6s ease-in-out;
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+  width: 280px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem 0;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: 0 2rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.sidebar-header h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 2rem 0;
+}
+
+.nav-item {
+  margin-bottom: 0.5rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border-right: 4px solid #fff;
+}
+
+.nav-link i {
+  margin-right: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+/* --- MAIN CONTENT --- */
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2rem;
+}
+
+/* --- TOP BAR --- */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.welcome-text h1 {
+  font-size: 1.8rem;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.quick-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* --- CYCLE STATS --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-left: 4px solid #667eea;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.stat-title {
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.stat-icon.cycle { background: linear-gradient(135deg, #f093fb, #f5576c); }
+.stat-icon.ovulation { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+.stat-icon.fertility { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+.stat-icon.health { background: linear-gradient(135deg, #fa709a, #fee140); }
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* --- CALENDAR --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.calendar-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.calendar-day {
+  background: white;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.calendar-day.menstruation { background: #fecaca; color: #dc2626; }
+.calendar-day.ovulation { background: #bfdbfe; color: #2563eb; }
+.calendar-day.fertile { background: #bbf7d0; color: #059669; }
+
+/* --- CYCLE FORM --- */
+#cycle-form-container {
+  display: none;
+  max-width: 600px;
+  margin: 20px auto;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 25px;
+  border-radius: 12px;
+  color: white;
+}
+
+#cycle-form-container h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+input {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+input:focus {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.btn-save {
+  background: white;
+  color: #667eea;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-save:hover {
+  background: #e2e8f0;
+  transform: translateY(-2px);
+}
+
+/* --- ASK & CONSULTATION --- */
+.ask-section textarea {
+  width: 100%;
+  height: 100px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+  font-size: 16px;
+  resize: vertical;
+}
+
+.ask-section button {
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.ask-section button:hover {
+  background-color: #1e3a8a;
+}
+
+.filter-section {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.filter-section select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.history-section .question-item {
+  background-color: #f1f5f9;
+  padding: 16px;
+  border-left: 5px solid #2563eb;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+.question-item p {
+  margin: 6px 0;
+}
+
+.popular-section ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.popular-section li {
+  margin-bottom: 8px;
+}
+/* --- Hiệu ứng mờ khi load body --- */
+@keyframes fadeInBody {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- Hiệu ứng trượt lên khi hiện form hoặc item --- */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Áp dụng hiệu ứng chung */
+#cycle-form-container.show,
+.history-section .question-item,
+.ask-section,
+.filter-section,
+.popular-section {
+  animation: slideUp 0.4s ease-in-out;
+}
+
+/* Hover nav-link nâng cao */
+.nav-link {
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.nav-link:hover {
+  transform: translateX(4px);
+}
+
+/* Hover nút hỏi đáp */
+.ask-section button,
+.btn-save,
+.btn {
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ask-section button:hover,
+.btn-save:hover,
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover từng item trong lịch sử hỏi đáp */
+.question-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Hover ngày trong lịch */
+.calendar-day {
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.calendar-day:hover {
+  background: #f1f5f9;
+  transform: scale(1.05);
+}
+
+/* Hover hiệu ứng cho dropdown lọc */
+.filter-section select:hover {
+  border-color: #2563eb;
+  box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Hiệu ứng tiêu đề các phần */
+section h2 {
+  animation: slideUp 0.4s ease-out;
+}
+
+/* Nút trong quick-actions */
+.quick-actions .btn-primary:hover {
+  background: linear-gradient(135deg, #5b6fe7, #6a3ea8);
+}
+/* --- Hiệu ứng tư vấn viên --- */
+.consultant-section {
+  margin-top: 3rem;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  animation: slideUp 0.5s ease-in-out;
+}
+
+.consultant-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.consultant-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+
+.consultant-card {
+  width: 260px;
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #667eea;
+  animation: slideUp 0.4s ease-in-out;
+}
+
+.consultant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+}
+
+.consultant-card img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #667eea;
+}
+
+.consultant-info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.consultant-info p {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* --- Hiệu ứng khi hover tiêu đề hỏi đáp phổ biến --- */
+.popular-section li:hover {
+  color: #2563eb;
+  cursor: pointer;
+  transform: translateX(6px);
+  transition: all 0.3s ease;
+}
+
+/* --- Hiệu ứng mượt khi chuyển trạng thái lọc --- */
+.filter-section select {
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- Fade & scale lên khi hover câu hỏi và trả lời --- */
+.question-item .answer-text,
+.question-item .question-text {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.question-item:hover .question-text {
+  transform: translateX(4px);
+  color: #1e40af;
+}
+
+.question-item:hover .answer-text {
+  transform: translateX(4px);
+  color: #0f766e;
+}
+
+/* --- Transition mượt cho lịch sử hỏi đáp --- */
+#questionHistory {
+  transition: all 0.3s ease;
+}

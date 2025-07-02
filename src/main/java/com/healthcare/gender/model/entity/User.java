@@ -105,4 +105,5 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+    // Getter và Setter cho roles (Set<String>)
 }

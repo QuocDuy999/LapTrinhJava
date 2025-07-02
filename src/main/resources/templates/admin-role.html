@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gán quyền người dùng</title>
+  <link rel="stylesheet" href="/css/admin-role.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Gán quyền cho người dùng</h2>
+    <form id="role-form">
+      <label for="email">Email người dùng:</label>
+      <input type="email" id="email" required placeholder="tuvan@example.com" />
+
+      <label for="role">Vai trò:</label>
+      <select id="role">
+        <option value="ROLE_USER">Người dùng</option>
+        <option value="ROLE_CONSULTANT">Tư vấn viên</option>
+        <option value="ROLE_ADMIN">Quản trị viên</option>
+      </select>
+
+      <button type="submit">Cập nhật quyền</button>
+    </form>
+    <div id="message" class="message"></div>
+
+    <h3 style="margin-top: 40px;">Danh sách tài khoản</h3>
+    <table id="user-table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Vai trò</th>
+        </tr>
+      </thead>
+      <tbody id="user-list">
+        <!-- Dữ liệu tài khoản sẽ được thêm tại đây -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="/js/admin-role.js"></script>
+</body>
+</html>
