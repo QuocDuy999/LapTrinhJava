@@ -26,4 +26,8 @@ public class PageController {
     public String adminConsultationPage() {
         return "admin-consultation"; // Trả về file templates/admin-consultation.html
     }
+    @GetMapping("/profile")
+    public String profilePage() {       
+        return "profile"; // Trả về file templates/profile.html
+    }
 }

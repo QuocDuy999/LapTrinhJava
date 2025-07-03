@@ -119,3 +119,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadQuestions();
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("token"); // Xóa JWT
+      window.location.href = "/login"; // Chuyển hướng về trang đăng nhập
+    });
+  }
+});

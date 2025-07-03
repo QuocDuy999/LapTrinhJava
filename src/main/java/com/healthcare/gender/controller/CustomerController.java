@@ -40,23 +40,23 @@ public class CustomerController {
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng!"));
 
         // Lấy danh sách role từ đối tượng Authentication
-            List<String> roles = auth.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.toList());
+        List<String> roles = auth.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok(Map.of(
-            "id", user.getId(),
-            "email", user.getEmail(),
-            "name", user.getName(),
-            "roles", roles // ✅ Trả thêm danh sách role
+                "id", user.getId(),
+                "email", user.getEmail(),
+                "name", user.getName(),
+                "roles", roles // ✅ Trả thêm danh sách role
         ));
 
     }
 
     @PostMapping("/cycle/add")
     public ResponseEntity<?> addCycle(@RequestParam LocalDate lastPeriodDate,
-                                      @RequestParam int cycleLength,
-                                      @RequestParam int periodLength) {
+            @RequestParam int cycleLength,
+            @RequestParam int periodLength) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -100,7 +100,6 @@ public class CustomerController {
         return ResponseEntity.ok(Map.of(
                 "lastPeriodDate", latestCycle.getLastPeriodDate(),
                 "cycleLength", latestCycle.getCycleLength(),
-                "periodLength", latestCycle.getPeriodLength()
-        ));
+                "periodLength", latestCycle.getPeriodLength()));
     }
 }

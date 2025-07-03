@@ -55,7 +55,8 @@ public class SecurityConfig {
                     "/appointment",
                     "/questions",
                     "/admin-role",
-                    "/admin-consultation"
+                    "/admin-consultation",
+                    "/profile"
                 ).permitAll()
 
                 // ✅ Đổi hasAnyRole → hasAuthority (để đồng bộ với @PreAuthorize)

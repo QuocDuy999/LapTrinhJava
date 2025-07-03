@@ -9,6 +9,7 @@
 </head>
 <body>
   <div class="dashboard">
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
         <h2>Admin Dashboard</h2>
@@ -25,14 +26,20 @@
       </nav>
     </aside>
 
+    <!-- Main Content -->
     <main class="main-content">
-      <div class="top-bar">
+      <!-- Top Bar with Logout -->
+      <div class="top-bar" style="position: relative;">
         <div class="welcome-text">
           <h1>Danh sách câu hỏi từ người dùng</h1>
           <p>Trả lời những thắc mắc về sức khỏe sinh sản và chu kỳ kinh nguyệt.</p>
         </div>
+        <div class="logout-btn" style="position: absolute; top: 20px; right: 30px;">
+          <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+        </div>
       </div>
 
+      <!-- Question List -->
       <section class="history-section">
         <div id="admin-question-list"></div>
       </section>

@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const div = document.createElement("div");
             div.classList.add("question-item");
             div.innerHTML = `
-              <p><strong>📝Người gửi:</strong> ${item.username}</p>
+              <p><strong>📝Người gửi:</strong> ${item.senderName || item.username}</p>
               <p><strong>Hỏi:</strong> ${item.question}</p>
               <p><em>Thời gian gửi: ${new Date(item.askedAt).toLocaleString()}</em></p>
               ${

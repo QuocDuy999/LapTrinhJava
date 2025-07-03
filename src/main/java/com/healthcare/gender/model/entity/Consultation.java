@@ -11,7 +11,7 @@ public class Consultation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false,columnDefinition = "NVARCHAR(255)")
     private String username;
 
     @Column(length = 2000)
@@ -21,7 +21,8 @@ public class Consultation {
 
     private LocalDateTime askedAt;
     private LocalDateTime answeredAt;
-
+    @Transient
+    private String senderName;
     public boolean isAnswered() {
         return answer != null && !answer.trim().isEmpty();
     }
